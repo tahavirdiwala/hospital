@@ -1,7 +1,6 @@
 require("dotenv").config();
 const express = require("express");
 const connectDb = require("./db/connect");
-const SymptomsModel = require("./models/symptoms.model");
 const app = express();
 
 start();

@@ -24,5 +24,5 @@ const SymptomsSchema = new mongoose.Schema(
   }
 );
 
-const SymptomsModel = mongoose.model("Symptom", SymptomsSchema);
-module.exports = SymptomsModel;
+const Symptoms = mongoose.model("Symptom", SymptomsSchema);
+module.exports = Symptoms;

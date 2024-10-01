@@ -17,10 +17,12 @@ const PaymentSchema = new mongoose.Schema(
     paymentMethod: {
       type: String,
       enum: ["UPI", "credit/debit card", "net banking"],
+      message: "{VALUE} is not supported",
     },
     status: {
       type: String,
       enum: ["successful", "pending", "failed"],
+      message: "{VALUE} is not supported",
     },
   },
   {

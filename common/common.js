@@ -1,7 +1,6 @@
 const { response } = require("express");
 /**
  * Sends a JSON response with a status code, message, and optional data.
- *
  * @param {response} res - Express response object.
  * @param {number} statusCode - HTTP status code.
  * @param {string} message - Response message.

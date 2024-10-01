@@ -1,6 +1,7 @@
 const { Express } = require("express");
 const userRouter = require("./user.router");
 const symptomRouter = require("./symptom.router");
+const doctorRouter = require("./doctor.router");
 
 /**
  * Apply routes for specified routers.
@@ -8,7 +9,7 @@ const symptomRouter = require("./symptom.router");
  */
 
 function routes(app) {
-  [userRouter, symptomRouter].forEach((route) => {
+  [userRouter, symptomRouter, doctorRouter].forEach((route) => {
     app.use("/api", route);
   });
 }

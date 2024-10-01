@@ -1,17 +1,16 @@
-const Doctor = require("../models/doctor.model");
+const Appointment = require("../models/appointment.model");
 
-class DoctorService {
+class AppointmentService {
   async add(req) {
     return new Promise((resolve, reject) => {
-      Doctor.create(req.body).then(resolve).catch(reject);
+      Appointment.create(req.body).then(resolve).catch(reject);
     });
   }
 
   async getAll(req) {
     return new Promise((resolve, reject) => {
-      const { page = 1, limit = 10 } = req.params;
-
-      Doctor.find()
+      const { page = 1, limit = 10 } = req.query;
+      Appointment.find()
         .limit(limit * 1)
         .skip((page - 1) * limit)
         .then(resolve)
@@ -21,13 +20,13 @@ class DoctorService {
 
   async get(req) {
     return new Promise((resolve, reject) => {
-      Doctor.findOne({ _id: req.params.id }).then(resolve).catch(reject);
+      Appointment.findOne({ _id: req.params.id }).then(resolve).catch(reject);
     });
   }
 
   async edit(req) {
     return new Promise((resolve, reject) => {
-      Doctor.findByIdAndUpdate(req.params.id, req.body)
+      Appointment.findByIdAndUpdate(req.params.id, req.body)
         .then(resolve)
         .catch(reject);
     });
@@ -35,12 +34,12 @@ class DoctorService {
 
   async delete(req) {
     return new Promise((resolve, reject) => {
-      Doctor.findByIdAndDelete(req.params.id)
+      Appointment.findByIdAndDelete(req.params.id)
         .then((response) => {
           if (Object.keys(response || {}).length > 0) {
-            resolve("Doctor Deleted SuccessFully");
+            resolve("Appointment Deleted SuccessFully");
           } else {
-            reject("Doctor does not exist");
+            reject("Appointment does not exist");
           }
         })
         .catch(reject);
@@ -48,4 +47,4 @@ class DoctorService {
   }
 }
 
-module.exports = new DoctorService();
+module.exports = new AppointmentService();

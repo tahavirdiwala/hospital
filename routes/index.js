@@ -2,6 +2,7 @@ const { Express } = require("express");
 const userRouter = require("./user.router");
 const symptomRouter = require("./symptom.router");
 const doctorRouter = require("./doctor.router");
+const appointmentRouter = require("./appointment.router");
 
 /**
  * Apply routes for specified routers.
@@ -9,9 +10,11 @@ const doctorRouter = require("./doctor.router");
  */
 
 function routes(app) {
-  [userRouter, symptomRouter, doctorRouter].forEach((route) => {
-    app.use("/api", route);
-  });
+  [userRouter, symptomRouter, doctorRouter, appointmentRouter].forEach(
+    (route) => {
+      app.use("/api", route);
+    }
+  );
 }
 
 module.exports = routes;

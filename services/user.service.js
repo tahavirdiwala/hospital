@@ -48,7 +48,7 @@ class UserService {
           if (Object.keys(response || {}).length > 0) {
             resolve("User Deleted SuccessFully");
           } else {
-            reject("User does not exists");
+            reject("User does not exist");
           }
         })
         .catch(reject);

@@ -56,7 +56,7 @@ class SymptomService {
           if (Object.keys(response || {}).length > 0) {
             resolve("Symptom Deleted SuccessFully");
           } else {
-            reject("Symptom does not exists");
+            reject("Symptom does not exist");
           }
         })
         .catch(reject);

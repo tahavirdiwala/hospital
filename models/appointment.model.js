@@ -1,12 +1,15 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose"),
+  Schema = mongoose;
 
 const AppointmentSchema = new mongoose.Schema(
   {
     userId: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
     doctorId: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "Doctor",
     },
     dateTime: {
       type: Date,
@@ -14,6 +17,7 @@ const AppointmentSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: ["scheduled", "completed", "canceled"],
+      message: "{VALUE} is not supported",
     },
   },
   {

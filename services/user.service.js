@@ -1,13 +1,13 @@
 const User = require("../models/user.model");
 
 class UserService {
-  async addUser(req) {
+  async add(req) {
     return new Promise((resolve, reject) => {
       User.create(req.body).then(resolve).catch(reject);
     });
   }
 
-  async getUsers(req) {
+  async getAll(req) {
     return new Promise((resolve, reject) => {
       //#region - body
       const { page = 1, limit = 10 } = req.params;
@@ -27,20 +27,20 @@ class UserService {
     });
   }
 
-  async getUser(req) {
+  async get(req) {
     return new Promise((resolve, reject) => {
       User.findOne({ _id: req.params.id }).then(resolve).catch(reject);
     });
   }
 
-  async editUser(req) {
+  async edit(req) {
     return new Promise((resolve, reject) => {
       const id = req.params.id;
       User.findByIdAndUpdate(id, req.body).then(resolve).catch(reject);
     });
   }
 
-  async deleteUser(req) {
+  async delete(req) {
     return new Promise((resolve, reject) => {
       const id = req.params.id;
       User.findByIdAndDelete(id)

@@ -5,7 +5,7 @@ const userService = require("../services/user.service");
 class UserController {
   async add(req, res) {
     try {
-      const user = await userService.addUser(req);
+      const user = await userService.add(req);
       sendResponse(res, StatusCodes.CREATED, "User Created SuccessFully", user);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
@@ -14,7 +14,7 @@ class UserController {
 
   async getAll(req, res) {
     try {
-      const users = await userService.getUsers(req);
+      const users = await userService.getAll(req);
       sendResponse(res, StatusCodes.OK, "Users Fetched SuccessFully", users);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
@@ -23,7 +23,7 @@ class UserController {
 
   async get(req, res) {
     try {
-      const user = await userService.getUser(req);
+      const user = await userService.get(req);
       sendResponse(res, StatusCodes.OK, "User Fetched SuccessFully", user);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
@@ -32,7 +32,7 @@ class UserController {
 
   async edit(req, res) {
     try {
-      const user = await userService.editUser(req);
+      const user = await userService.edit(req);
       sendResponse(res, StatusCodes.OK, "User Updated SuccessFully", user);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
@@ -41,7 +41,7 @@ class UserController {
 
   async delete(req, res) {
     try {
-      const user = await userService.deleteUser(req);
+      const user = await userService.delete(req);
       sendResponse(res, StatusCodes.OK, user);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);

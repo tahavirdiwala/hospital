@@ -10,6 +10,7 @@ router
 router
   .route("/medication/:id")
   .get(medicationController.get)
-  .put(medicationController.edit);
+  .put(medicationController.edit)
+  .delete(medicationController.delete)
 
 module.exports = router;

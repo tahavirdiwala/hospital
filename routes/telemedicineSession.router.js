@@ -10,7 +10,7 @@ router
 router
   .route("/telemedicine-session/:id")
   .get(telemedicineSessionController.get)
-  .put(telemedicineSessionController.edit);
-//   .delete(telemedicineSessionController)
+  .put(telemedicineSessionController.edit)
+  .delete(telemedicineSessionController.delete);
 
 module.exports = router;

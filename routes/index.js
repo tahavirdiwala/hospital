@@ -3,8 +3,7 @@ const userRouter = require("./user.router");
 const symptomRouter = require("./symptom.router");
 
 /**
- * Apply routes to specified routers.
- *
+ * Apply routes for specified routers.
  * @param {Express} app - Express response object.
  */
 

@@ -58,6 +58,15 @@ class TeleMedicineSessionController {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
   }
+
+  async delete(req, res) {
+    try {
+      const telemedicine = await telemedicineService.delete(req);
+      sendResponse(res, StatusCodes.OK, telemedicine);
+    } catch (error) {
+      sendResponse(res, StatusCodes.BAD_REQUEST, error);
+    }
+  }
 }
 
 module.exports = new TeleMedicineSessionController();

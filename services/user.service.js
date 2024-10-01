@@ -18,6 +18,8 @@ class UserService {
       User.findOne({ _id: req.params.id }).then(resolve).catch(reject);
     });
   }
+
+  async edit(req) {}
 }
 
 module.exports = new UserService();

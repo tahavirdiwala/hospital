@@ -7,8 +7,8 @@ class UserController {
     try {
       const user = await userService.addUser(req);
       sendResponse(res, StatusCodes.CREATED, "User Created SuccessFully", user);
-    } catch (err) {
-      sendResponse(res, StatusCodes.BAD_REQUEST, err.message);
+    } catch (error) {
+      sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
   }
 
@@ -16,8 +16,8 @@ class UserController {
     try {
       const users = await userService.getAll();
       sendResponse(res, StatusCodes.OK, "Users Fetched SuccessFully", users);
-    } catch (err) {
-      sendResponse(res, StatusCodes.BAD_REQUEST, err.message);
+    } catch (error) {
+      sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
   }
 
@@ -25,15 +25,15 @@ class UserController {
     try {
       const user = await userService.get(req);
       sendResponse(res, StatusCodes.OK, "User Fetched SuccessFully", user);
-    } catch (err) {
-      sendResponse(res, StatusCodes.BAD_REQUEST, err.message);
+    } catch (error) {
+      sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
   }
 
   async edit(req, res) {
     try {
-    } catch (err) {
-      sendResponse(res);
+    } catch (error) {
+      sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
   }
 }

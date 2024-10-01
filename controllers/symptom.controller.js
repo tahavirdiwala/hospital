@@ -27,6 +27,8 @@ class SymptomController {
         symptoms
       );
     } catch (error) {
+      console.log("error", error);
+
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
   }
@@ -47,7 +49,7 @@ class SymptomController {
 
   async edit(req, res) {
     try {
-      const symptom = await symptomService.edit(req);
+      await symptomService.edit(req);
       sendResponse(res, StatusCodes.OK, "Symptom Updated SuccessFully");
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);

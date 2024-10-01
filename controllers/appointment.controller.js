@@ -13,7 +13,7 @@ class AppointmentController {
         appointment
       );
     } catch (error) {
-      sendResponse(res, StatusCodes.BAD_REQUEST, error.message);
+      sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
   }
 
@@ -41,7 +41,7 @@ class AppointmentController {
         appointment
       );
     } catch (error) {
-      sendResponse(res, StatusCodes.BAD_REQUEST, error.message);
+      sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
   }
 
@@ -55,7 +55,7 @@ class AppointmentController {
         req.body
       );
     } catch (error) {
-      sendResponse(res, StatusCodes.BAD_REQUEST, error.message);
+      sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
   }
 
@@ -64,7 +64,7 @@ class AppointmentController {
       const appointment = await appointmentService.delete(req);
       sendResponse(res, StatusCodes.OK, appointment);
     } catch (error) {
-      sendResponse(res, StatusCodes.BAD_REQUEST, error.message || error);
+      sendResponse(res, StatusCodes.BAD_REQUEST, error || error);
     }
   }
 }

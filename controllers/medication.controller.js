@@ -13,7 +13,7 @@ class MedicationController {
         medication
       );
     } catch (error) {
-      sendResponse(res, StatusCodes.BAD_REQUEST, error.message);
+      sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
   }
 
@@ -28,7 +28,7 @@ class MedicationController {
         medications
       );
     } catch (error) {
-      sendResponse(res, StatusCodes.BAD_REQUEST, error.message);
+      sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
   }
 
@@ -42,7 +42,7 @@ class MedicationController {
         medication
       );
     } catch (error) {
-      sendResponse(res, StatusCodes.BAD_REQUEST, error.message);
+      sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
   }
 
@@ -56,7 +56,7 @@ class MedicationController {
         req.body
       );
     } catch (error) {
-      sendResponse(res, StatusCodes.BAD_REQUEST, error.message);
+      sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
   }
 
@@ -65,7 +65,7 @@ class MedicationController {
       const medication = await medicationService.delete(req);
       sendResponse(res, StatusCodes.OK, medication);
     } catch (error) {
-      sendResponse(res, StatusCodes.BAD_REQUEST, error.message);
+      sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
   }
 }

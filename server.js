@@ -4,7 +4,6 @@ const connectDb = require("./db/connect");
 const cors = require("cors");
 const app = express();
 const userRouter = require("./routes/user.router");
-start();
 
 app.use(cors());
 app.use(express.json());
@@ -16,6 +15,8 @@ routers.forEach((item) => {
   app.use("/api", item);
 });
 
+start();
+
 async function start() {
   try {
     await connectDb(process.env.MONGO_URL).then(() => {
@@ -24,7 +25,7 @@ async function start() {
     app.listen(PORT, () => {
       console.log("server is running on " + PORT);
     });
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
   }
 }

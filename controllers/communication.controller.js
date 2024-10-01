@@ -44,5 +44,28 @@ class CommunicationController {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
   }
+
+  async edit(req, res) {
+    try {
+      await communicationService.edit(req);
+      sendResponse(
+        res,
+        StatusCodes.OK,
+        "Communication Updated SuccessFully",
+        req.body
+      );
+    } catch (error) {
+      sendResponse(res, StatusCodes.BAD_REQUEST, error);
+    }
+  }
+
+  async delete(req, res) {
+    try {
+      const communication = await communicationService.delete(req);
+      sendResponse(res, StatusCodes.OK, communication);
+    } catch (error) {
+      sendResponse(res, StatusCodes.BAD_REQUEST, error);
+    }
+  }
 }
 module.exports = new CommunicationController();

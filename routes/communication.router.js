@@ -7,5 +7,10 @@ router
   .post(communicationController.add)
   .get(communicationController.getAll);
 
-router.route("/communication/:id").get(communicationController.get);
+router
+  .route("/communication/:id")
+  .get(communicationController.get)
+  .put(communicationController.edit)
+  .delete(communicationController.delete);
+
 module.exports = router;

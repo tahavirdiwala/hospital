@@ -32,8 +32,8 @@ class UserController {
 
   async edit(req, res) {
     try {
-      const user = await userService.edit(req);
-      sendResponse(res, StatusCodes.OK, "User Updated SuccessFully", user);
+      await userService.edit(req);
+      sendResponse(res, StatusCodes.OK, "User Updated SuccessFully");
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }

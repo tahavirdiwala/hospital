@@ -10,7 +10,7 @@ class SymptomService {
   async getAll(req) {
     return new Promise((resolve, reject) => {
       //#region - body
-      const { page = 1, limit = 10, usersPage = 1, usersLimit = 5 } = req.query;
+      const { page = 1, limit = 10, userPage = 1, userLimit = 5 } = req.query;
       //#endregion - body
 
       //#region - selectors
@@ -23,8 +23,8 @@ class SymptomService {
         .populate({
           path: "userId",
           options: {
-            skip: (usersPage - 1) * usersLimit,
-            limit: usersLimit * 1,
+            skip: (userPage - 1) * userLimit,
+            limit: userLimit * 1,
           },
         })
         .limit(limit * 1)

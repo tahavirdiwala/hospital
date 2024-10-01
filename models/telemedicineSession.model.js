@@ -26,5 +26,8 @@ const TeleMedicineSchema = new mongoose.Schema(
   }
 );
 
-const TeleMedicine = mongoose.model("TeleMedicine", TeleMedicineSchema);
-module.exports = TeleMedicine;
+const TeleMedicineSession = mongoose.model(
+  "TeleMedicineSession",
+  TeleMedicineSchema
+);
+module.exports = TeleMedicineSession;

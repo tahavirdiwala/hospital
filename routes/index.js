@@ -7,6 +7,7 @@ const medicationRouter = require("./medication.router");
 const communicationRouter = require("./communication.router");
 const paymentRouter = require("./payment.router");
 const clinic = require("./clinic.router");
+const telemedicineSession = require("./telemedicineSession.router");
 
 /**
  * Apply routes for specified routers.
@@ -23,6 +24,7 @@ function routes(app) {
     communicationRouter,
     paymentRouter,
     clinic,
+    telemedicineSession,
   ].forEach((route) => {
     app.use("/api", route);
   });

@@ -8,9 +8,7 @@ const { response } = require("express");
  */
 
 const sendResponse = (res, statusCode, response, data = null) => {
-  if (typeof response === "object" && "message" in response) {
-    response = response["message"];
-  }
+  if (response["message"]) response = response["message"];
   res
     .status(statusCode)
     .json({ statusCode, message: response, ...(data && { data }) });

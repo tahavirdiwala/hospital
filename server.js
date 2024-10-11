@@ -3,15 +3,18 @@ const express = require("express");
 const connectDb = require("./db/connect");
 const cors = require("cors");
 const routes = require("./routes");
+const errorConfig = require("./middlewares/errorConfig.middleware");
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+routes(app);
+app.all("*", errorConfig.invalidRoute);
+app.use(errorConfig.handler);
 
 const PORT = process.env.PORT;
 
 start();
-routes(app);
 
 async function start() {
   try {

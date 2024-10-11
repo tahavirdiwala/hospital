@@ -1,4 +1,6 @@
 const { response } = require("express");
+require("dotenv").config();
+
 /**
  * Sends a JSON response with a status code, message, and optional data.
  * @param {response} res - Express response object.
@@ -14,4 +16,12 @@ const sendResponse = (res, statusCode, response, data = null) => {
     .json({ statusCode, message: response, ...(data && { data }) });
 };
 
-module.exports = sendResponse;
+const serverConfig = {
+  MONGO_URL: process.env.MONGO_URL,
+  PORT: process.env.PORT,
+};
+
+module.exports = {
+  sendResponse,
+  serverConfig,
+};

@@ -1,6 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
-const sendResponse = require("../common/common");
 const appointmentService = require("../services/appointment.service");
+const { sendResponse } = require("../common/common");
 
 class AppointmentController {
   async add(req, res) {

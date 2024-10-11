@@ -1,6 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
-const sendResponse = require("../common/common");
 const medicationService = require("../services/medication.service");
+const { sendResponse } = require("../common/common");
 
 class MedicationController {
   async add(req, res) {

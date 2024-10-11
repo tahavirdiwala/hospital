@@ -1,6 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
-const sendResponse = require("../common/common");
 const communicationService = require("../services/communication.service");
+const { sendResponse } = require("../common/common");
 
 class CommunicationController {
   async add(req, res) {

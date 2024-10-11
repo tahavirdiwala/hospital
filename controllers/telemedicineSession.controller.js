@@ -1,6 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
-const sendResponse = require("../common/common");
 const telemedicineService = require("../services/telemedicine.service");
+const { sendResponse } = require("../common/common");
 
 class TeleMedicineSessionController {
   async add(req, res) {

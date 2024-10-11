@@ -1,6 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
-const sendResponse = require("../common/common");
 const paymentService = require("../services/payment.service");
+const { sendResponse } = require("../common/common");
 
 class PaymentController {
   async add(req, res) {

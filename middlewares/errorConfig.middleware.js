@@ -1,5 +1,5 @@
 const { StatusCodes } = require("http-status-codes");
-const sendResponse = require("../common/common");
+const { sendResponse } = require("../common/common");
 
 class ErrorConfig {
   invalidRoute(req, res, next) {

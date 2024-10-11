@@ -8,8 +8,8 @@ class TeleMedicineSessionController {
       const telemedicine = await telemedicineService.add(req);
       sendResponse(
         res,
-        StatusCodes.OK,
-        "Tele Medicine Sessions Created SuccessFully",
+        StatusCodes.CREATED,
+        "Tele Medicine Session Created SuccessFully",
         telemedicine
       );
     } catch (error) {

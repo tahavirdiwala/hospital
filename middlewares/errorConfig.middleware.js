@@ -8,7 +8,7 @@ class ErrorConfig {
     next(err);
   }
 
-  handler(error, req, res, next) {
+  default(error, req, res, next) {
     error.statusCode = error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR;
     sendResponse(res, error.statusCode, error.message);
   }

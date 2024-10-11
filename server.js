@@ -6,11 +6,12 @@ const routes = require("./routes");
 const errorConfig = require("./middlewares/errorConfig.middleware");
 const app = express();
 
-app.use(cors());
-app.use(express.json());
 routes(app);
 app.all("*", errorConfig.invalidRoute);
-app.use(errorConfig.handler);
+app.use(errorConfig.default);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 const PORT = process.env.PORT;
 

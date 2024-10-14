@@ -4,6 +4,8 @@ const { sendResponse } = require("../common/common");
 
 class CommunicationController {
   async add(req, res) {
+    console.log("req", req.body);
+
     try {
       const communication = await communicationService.add(req);
       sendResponse(

@@ -6,11 +6,11 @@ const errorConfig = require("./middleware/errorConfig.middleware");
 const { serverConfig } = require("./common/common");
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 routes(app);
 app.all("*", errorConfig.invalidRoute);
 app.use(errorConfig.default);
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 start();

@@ -1,6 +1,34 @@
+const { SALT_PASSWORD_CONFIG } = require("../common/common");
 const User = require("../models/user.model");
+const bcrypt = require("bcryptjs");
 
 class UserService {
+  async register(req) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        if (Object.values(req.body || {}).some((field) => !field)) {
+          reject("Please fill necessary field");
+        }
+
+        const salt = await bcrypt.genSalt(SALT_PASSWORD_CONFIG.RANGE);
+
+        const payload = {
+          ...req.body,
+          password: await bcrypt.hash(req.body.password, salt),
+        };
+
+        User.findOne({ email: req.body.email })
+          .then((user) => {
+            if (user) reject("User already exists");
+            else User.create(payload).then(resolve).catch(reject);
+          })
+          .catch(reject);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
   async add(req) {
     return new Promise((resolve, reject) => {
       User.create(req.body).then(resolve).catch(reject);

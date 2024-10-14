@@ -3,10 +3,22 @@ const userService = require("../services/user.service");
 const { sendResponse } = require("../common/common");
 
 class UserController {
-  async add(req, res) {
+  async register(req, res) {
     try {
-      const user = await userService.add(req);
-      sendResponse(res, StatusCodes.CREATED, "User Created SuccessFully", user);
+      const user = await userService.register(req);
+      sendResponse(
+        res,
+        StatusCodes.CREATED,
+        "User Registered SuccessFully",
+        user
+      );
+    } catch (error) {
+      sendResponse(res, StatusCodes.BAD_REQUEST, error);
+    }
+  }
+
+  async login(req, res) {
+    try {
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }

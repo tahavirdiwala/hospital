@@ -59,6 +59,15 @@ class UserController {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
   }
+
+  async logout(req, res) {
+    try {
+      userService.logout(req, res);
+      sendResponse(res, StatusCodes.OK, MESSAGE.logout);
+    } catch (error) {
+      sendResponse(res, StatusCodes.BAD_REQUEST, error);
+    }
+  }
 }
 
 module.exports = new UserController();

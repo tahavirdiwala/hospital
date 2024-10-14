@@ -114,6 +114,10 @@ class UserService {
         .catch(reject);
     });
   }
+
+  async logout(req, res) {
+    return res.clearCookie("jwt");
+  }
 }
 
 module.exports = new UserService();

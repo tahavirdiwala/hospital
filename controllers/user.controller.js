@@ -1,17 +1,15 @@
 const { StatusCodes } = require("http-status-codes");
 const userService = require("../services/user.service");
 const { sendResponse } = require("../common/common");
+const {
+  RESPONSE_MESSAGE: { user: MESSAGE },
+} = require("../lib/constant");
 
 class UserController {
   async register(req, res) {
     try {
       const user = await userService.register(req);
-      sendResponse(
-        res,
-        StatusCodes.CREATED,
-        "User Registered SuccessFully",
-        user
-      );
+      sendResponse(res, StatusCodes.CREATED, MESSAGE.register, user);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
@@ -20,7 +18,7 @@ class UserController {
   async login(req, res) {
     try {
       const user = await userService.login(req, res);
-      sendResponse(res, StatusCodes.OK, "User Login SuccessFully", user);
+      sendResponse(res, StatusCodes.OK, MESSAGE.login, user);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
@@ -29,7 +27,7 @@ class UserController {
   async getAll(req, res) {
     try {
       const users = await userService.getAll(req);
-      sendResponse(res, StatusCodes.OK, "Users Fetched SuccessFully", users);
+      sendResponse(res, StatusCodes.OK, MESSAGE.all, users);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
@@ -38,7 +36,7 @@ class UserController {
   async get(req, res) {
     try {
       const user = await userService.get(req);
-      sendResponse(res, StatusCodes.OK, "User Fetched SuccessFully", user);
+      sendResponse(res, StatusCodes.OK, MESSAGE.get, user);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
@@ -47,7 +45,7 @@ class UserController {
   async edit(req, res) {
     try {
       await userService.edit(req);
-      sendResponse(res, StatusCodes.OK, "User Updated SuccessFully");
+      sendResponse(res, StatusCodes.OK, MESSAGE.edit);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
@@ -55,8 +53,8 @@ class UserController {
 
   async delete(req, res) {
     try {
-      const user = await userService.delete(req);
-      sendResponse(res, StatusCodes.OK, user);
+      await userService.delete(req);
+      sendResponse(res, StatusCodes.OK, MESSAGE.delete);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }

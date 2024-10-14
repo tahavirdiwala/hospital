@@ -1,12 +1,15 @@
 const { StatusCodes } = require("http-status-codes");
 const paymentService = require("../services/payment.service");
 const { sendResponse } = require("../common/common");
+const {
+  RESPONSE_MESSAGE: { payment: MESSAGE },
+} = require("../lib/constant");
 
 class PaymentController {
   async add(req, res) {
     try {
       const payment = await paymentService.add(req);
-      sendResponse(res, StatusCodes.OK, "Payment Paid SuccessFully", payment);
+      sendResponse(res, StatusCodes.OK, MESSAGE.add, payment);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
@@ -15,12 +18,7 @@ class PaymentController {
   async getAll(req, res) {
     try {
       const payment = await paymentService.getAll(req);
-      sendResponse(
-        res,
-        StatusCodes.OK,
-        "Payments Fetched SuccessFully",
-        payment
-      );
+      sendResponse(res, StatusCodes.OK, MESSAGE.all, payment);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
@@ -29,12 +27,7 @@ class PaymentController {
   async get(req, res) {
     try {
       const payment = await paymentService.get(req);
-      sendResponse(
-        res,
-        StatusCodes.OK,
-        "Payment Fetched SuccessFully",
-        payment
-      );
+      sendResponse(res, StatusCodes.OK, MESSAGE.get, payment);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_GATEWAY, error);
     }

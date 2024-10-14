@@ -38,7 +38,7 @@ class DoctorService {
       Doctor.findByIdAndDelete(req.params.id)
         .then((response) => {
           if (Object.keys(response || {}).length > 0) {
-            resolve("Doctor Deleted SuccessFully");
+            resolve();
           } else {
             reject("Doctor does not exist");
           }

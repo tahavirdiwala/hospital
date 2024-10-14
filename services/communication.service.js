@@ -32,7 +32,7 @@ class CommunicationService {
       Communication.findByIdAndDelete(req.params.id)
         .then((response) => {
           if (Object.keys(response || {}).length > 0) {
-            resolve("Communication Deleted SuccessFully");
+            resolve();
           } else {
             reject("Communication does not exist");
           }

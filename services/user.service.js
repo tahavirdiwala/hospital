@@ -31,7 +31,7 @@ class UserService {
     });
   }
 
-  async login(req) {
+  async login(req, res) {
     return new Promise(async (resolve, reject) => {
       try {
         let user = await User.findOne({ email: req.body.email });
@@ -53,6 +53,8 @@ class UserService {
             );
             user = user.toJSON();
             delete user.password;
+
+            res.cookie("jwt", token, { httpOnly: true, maxAge: 10000 });
 
             resolve({ ...user, token });
           } else {

@@ -19,7 +19,7 @@ class UserController {
 
   async login(req, res) {
     try {
-      const user = await userService.login(req);
+      const user = await userService.login(req, res);
       sendResponse(res, StatusCodes.OK, "User Login SuccessFully", user);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);

@@ -5,9 +5,13 @@ const routes = require("./routes");
 const errorConfig = require("./middleware/errorConfig.middleware");
 const { serverConfig } = require("./common/common");
 const app = express();
+const userRouter = require("./routes/user.router");
+const cookie = require("cookie-parser");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookie());
+app.use("/api", userRouter);
 routes(app);
 app.all("*", errorConfig.invalidRoute);
 app.use(errorConfig.default);

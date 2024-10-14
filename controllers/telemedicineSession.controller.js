@@ -22,7 +22,7 @@ class TeleMedicineSessionController {
       const telemedicines = await telemedicineService.getAll(req);
       sendResponse(
         res,
-        StatusCodes.BAD_REQUEST,
+        StatusCodes.OK,
         "Tele Medicine Sessions Fetched SuccessFully",
         telemedicines
       );

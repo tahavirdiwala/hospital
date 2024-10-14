@@ -1,17 +1,15 @@
 const { StatusCodes } = require("http-status-codes");
 const symptomService = require("../services/symptom.service");
 const { sendResponse } = require("../common/common");
+const {
+  RESPONSE_MESSAGE: { symptom: MESSAGE },
+} = require("../lib/constant");
 
 class SymptomController {
   async add(req, res) {
     try {
       const symptom = await symptomService.add(req);
-      sendResponse(
-        res,
-        StatusCodes.CREATED,
-        "Symptom Created SuccessFully",
-        symptom
-      );
+      sendResponse(res, StatusCodes.CREATED, MESSAGE.add, symptom);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
@@ -20,12 +18,7 @@ class SymptomController {
   async getAll(req, res) {
     try {
       const symptoms = await symptomService.getAll(req);
-      sendResponse(
-        res,
-        StatusCodes.OK,
-        "Symptoms Fetched SuccessFully",
-        symptoms
-      );
+      sendResponse(res, StatusCodes.OK, MESSAGE.all, symptoms);
     } catch (error) {
       console.log("error", error);
 
@@ -36,12 +29,7 @@ class SymptomController {
   async get(req, res) {
     try {
       const symptom = await symptomService.get(req);
-      sendResponse(
-        res,
-        StatusCodes.OK,
-        "Symptom Fetched SuccessFully",
-        symptom
-      );
+      sendResponse(res, StatusCodes.OK, MESSAGE.get, symptom);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
@@ -50,7 +38,7 @@ class SymptomController {
   async edit(req, res) {
     try {
       await symptomService.edit(req);
-      sendResponse(res, StatusCodes.OK, "Symptom Updated SuccessFully");
+      sendResponse(res, StatusCodes.OK, MESSAGE.edit);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
@@ -58,8 +46,8 @@ class SymptomController {
 
   async delete(req, res) {
     try {
-      const symptom = await symptomService.delete(req);
-      sendResponse(res, StatusCodes.OK, symptom);
+      await symptomService.delete(req);
+      sendResponse(res, StatusCodes.OK, MESSAGE.delete);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }

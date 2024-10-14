@@ -3,10 +3,10 @@ const connectDb = require("./db/connect");
 const cors = require("cors");
 const routes = require("./routes");
 const errorConfig = require("./middleware/errorConfig.middleware");
-const { serverConfig } = require("./common/common");
 const app = express();
 const userRouter = require("./routes/user.router");
 const cookie = require("cookie-parser");
+const { SERVER_CONFIG } = require("./lib/constant");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -21,11 +21,11 @@ start();
 
 async function start() {
   try {
-    await connectDb(serverConfig.MONGO_URL).then(() => {
+    await connectDb(SERVER_CONFIG.MONGO_URL).then(() => {
       console.log("database connected");
     });
-    app.listen(serverConfig.PORT, () => {
-      console.log("server is running on " + serverConfig.PORT);
+    app.listen(SERVER_CONFIG.PORT, () => {
+      console.log("server is running on " + SERVER_CONFIG.PORT);
     });
   } catch (error) {
     console.log(error);

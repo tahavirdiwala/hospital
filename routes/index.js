@@ -7,7 +7,7 @@ const communicationRouter = require("./communication.router");
 const paymentRouter = require("./payment.router");
 const clinic = require("./clinic.router");
 const telemedicineSession = require("./telemedicineSession.router");
-const { applyAuthentication } = require("../middleware/auth.middleware");
+const { applyAuthentication } = require("../middlewares/auth.middleware");
 
 /**
  * Apply routes for specified routers.

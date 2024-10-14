@@ -2,7 +2,7 @@ const express = require("express");
 const connectDb = require("./db/connect");
 const cors = require("cors");
 const routes = require("./routes");
-const errorConfig = require("./middlewares/errorConfig.middleware");
+const errorConfig = require("./middleware/errorConfig.middleware");
 const { serverConfig } = require("./common/common");
 const app = express();
 

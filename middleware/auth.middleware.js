@@ -17,7 +17,7 @@ function checkUserAuthentication(req, res, next) {
   if (token) {
     let decoded;
 
-    jwt.verify(token, process.env.SECRET, (error, tokenRes) => {
+    jwt.verify(token, process.env.JWT_SECRET, (error, tokenRes) => {
       if (error) {
         if (error.name === "TokenExpiredError") {
           throw new Error("Unauthorized - Token has expired");

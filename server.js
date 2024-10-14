@@ -1,5 +1,5 @@
 const express = require("express");
-const connectDb = require("./db/connect");
+const connectDb = require("./database/connect");
 const cors = require("cors");
 const routes = require("./routes");
 const errorConfig = require("./middleware/errorConfig.middleware");

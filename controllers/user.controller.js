@@ -62,7 +62,7 @@ class UserController {
 
   async logout(req, res) {
     try {
-      userService.logout(req, res);
+      await userService.logout(req, res);
       sendResponse(res, StatusCodes.OK, MESSAGE.logout);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);

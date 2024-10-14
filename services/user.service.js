@@ -1,6 +1,8 @@
+require("dotenv").config();
 const { SALT_PASSWORD_CONFIG } = require("../common/common");
 const User = require("../models/user.model");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 class UserService {
   async register(req) {
@@ -19,10 +21,44 @@ class UserService {
 
         User.findOne({ email: req.body.email })
           .then((user) => {
-            if (user) reject("User already exists");
+            if (user) reject("User already exist");
             else User.create(payload).then(resolve).catch(reject);
           })
           .catch(reject);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  async login(req) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let user = await User.findOne({ email: req.body.email });
+        if (user) {
+          const validPassword = await bcrypt.compare(
+            req.body.password,
+            user.password
+          );
+          if (validPassword) {
+            let token = jwt.sign(
+              {
+                id: user._id,
+                email: user.email,
+              },
+              process.env.SECRET,
+              {
+                expiresIn: process.env.JWT_EXPIRE,
+              }
+            );
+            user = user.toJSON();
+            delete user.password;
+
+            resolve({ ...user, token });
+          } else {
+            reject("Invalid Password");
+          }
+        } else reject("User does not exist");
       } catch (error) {
         reject(error);
       }

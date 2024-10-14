@@ -65,12 +65,6 @@ class UserService {
     });
   }
 
-  async add(req) {
-    return new Promise((resolve, reject) => {
-      User.create(req.body).then(resolve).catch(reject);
-    });
-  }
-
   async getAll(req) {
     return new Promise((resolve, reject) => {
       //#region - body

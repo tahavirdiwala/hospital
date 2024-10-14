@@ -16,17 +16,6 @@ const sendResponse = (res, statusCode, response, data = null) => {
     .json({ statusCode, message: response, ...(data && { data }) });
 };
 
-const serverConfig = {
-  MONGO_URL: process.env.MONGO_URL,
-  PORT: process.env.PORT,
-};
-
-const SALT_PASSWORD_CONFIG = {
-  RANGE: 10,
-};
-
 module.exports = {
   sendResponse,
-  serverConfig,
-  SALT_PASSWORD_CONFIG,
 };

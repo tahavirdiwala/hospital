@@ -37,7 +37,7 @@ class AppointmentService {
       Appointment.findByIdAndDelete(req.params.id)
         .then((response) => {
           if (Object.keys(response || {}).length > 0) {
-            resolve("Appointment Deleted SuccessFully");
+            resolve();
           } else {
             reject("Appointment does not exist");
           }

@@ -1,17 +1,15 @@
 const { StatusCodes } = require("http-status-codes");
 const clinicService = require("../services/clinic.service");
 const { sendResponse } = require("../common/common");
+const {
+  RESPONSE_MESSAGE: { clinic: MESSAGE },
+} = require("../lib/constant");
 
 class ClinicController {
   async add(req, res) {
     try {
       const clinic = await clinicService.add(req);
-      sendResponse(
-        res,
-        StatusCodes.CREATED,
-        "Clinic Created SuccessFully",
-        clinic
-      );
+      sendResponse(res, StatusCodes.CREATED, MESSAGE.add, clinic);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
@@ -20,12 +18,7 @@ class ClinicController {
   async getAll(req, res) {
     try {
       const clinics = await clinicService.getAll(req);
-      sendResponse(
-        res,
-        StatusCodes.OK,
-        "Clinics Fetched SuccessFully",
-        clinics
-      );
+      sendResponse(res, StatusCodes.OK, MESSAGE.all, clinics);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
@@ -34,7 +27,7 @@ class ClinicController {
   async get(req, res) {
     try {
       const clinic = await clinicService.get(req);
-      sendResponse(res, StatusCodes.OK, "Clinic Fetched SuccessFully", clinic);
+      sendResponse(res, StatusCodes.OK, MESSAGE.get, clinic);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }

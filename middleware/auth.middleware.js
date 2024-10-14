@@ -22,7 +22,6 @@ function checkUserAuthentication(req, res, next) {
         if (error.name === "TokenExpiredError") {
           throw new Error("Unauthorized - Token has expired");
         } else {
-          sendResponse(res, StatusCodes.BAD_REQUEST);
           throw new Error("Unauthorized- " + error.message);
         }
       } else {

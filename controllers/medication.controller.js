@@ -18,7 +18,6 @@ class MedicationController {
   async getAll(req, res) {
     try {
       const medications = await medicationService.getAll(req);
-
       sendResponse(res, StatusCodes.OK, MESSAGE.all, medications);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);

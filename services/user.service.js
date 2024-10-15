@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { SALT_PASSWORD_CONFIG } = require("../common/common");
+const { SALT_PASSWORD_CONFIG } = require("../lib/constant");
 const User = require("../models/user.model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -21,7 +21,7 @@ class UserService {
 
         User.findOne({ email: req.body.email })
           .then((user) => {
-            if (user) reject("User already exist");
+            if (user) reject("User already exist please login");
             else User.create(payload).then(resolve).catch(reject);
           })
           .catch(reject);
@@ -58,7 +58,7 @@ class UserService {
 
             resolve({ ...user, token });
           } else {
-            reject("Invalid Password");
+            reject("Password is incorrect");
           }
         } else reject("User does not exist");
       } catch (error) {

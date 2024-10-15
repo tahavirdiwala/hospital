@@ -23,8 +23,6 @@ function checkUserAuthentication(req, res, next) {
           throw new Error("Unauthorized- " + error.message);
         }
       } else {
-        console.log("tokenResponse", tokenResponse);
-
         req.user = tokenResponse.user;
       }
     });

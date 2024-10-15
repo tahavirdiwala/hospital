@@ -15,9 +15,7 @@ function checkUserAuthentication(req, res, next) {
   let token = req.cookies.jwt;
 
   if (token) {
-    let decoded;
-
-    jwt.verify(token, process.env.JWT_SECRET, (error, tokenRes) => {
+    jwt.verify(token, process.env.JWT_SECRET, (error, tokenResponse) => {
       if (error) {
         if (error.name === "TokenExpiredError") {
           throw new Error("Unauthorized - Token has expired");
@@ -25,8 +23,9 @@ function checkUserAuthentication(req, res, next) {
           throw new Error("Unauthorized- " + error.message);
         }
       } else {
-        decoded = tokenRes;
-        req.userId = decoded.id;
+        console.log("tokenResponse", tokenResponse);
+
+        req.user = tokenResponse.user;
       }
     });
   } else {

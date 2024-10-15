@@ -34,25 +34,24 @@ class UserService {
   async login(req, res) {
     return new Promise(async (resolve, reject) => {
       try {
-        let user = await User.findOne({ email: req.body.email });
-        if (user) {
+        const userData = await User.findOne({ email: req.body.email });
+        const { password, ...user } = userData.toJSON();
+
+        if (userData) {
           const validPassword = await bcrypt.compare(
             req.body.password,
-            user.password
+            password
           );
           if (validPassword) {
             let token = jwt.sign(
               {
-                id: user._id,
-                email: user.email,
+                user,
               },
               process.env.JWT_SECRET,
               {
                 expiresIn: process.env.JWT_EXPIRE,
               }
             );
-            user = user.toJSON();
-            delete user.password;
 
             res.cookie("jwt", token, { expire: process.env.JWT_EXPIRE });
 

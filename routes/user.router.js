@@ -10,6 +10,10 @@ loginRouter
   .route("/user/request-password-reset")
   .post(userController.requestPasswordReset);
 
+loginRouter
+  .route("/user/reset-password/:id/:token")
+  .post(userController.resetPassword);
+
 router.route("/user").get(userController.getAll);
 
 router.route("/user/logout").get(userController.logout);

@@ -77,6 +77,15 @@ class UserController {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
   }
+
+  async resetPassword(req, res) {
+    try {
+      const response = await userService.resetPassword(req, res);
+      sendResponse(res, StatusCodes.OK, MESSAGE.resetPassword, response);
+    } catch (error) {
+      sendResponse(res, StatusCodes.BAD_REQUEST, error);
+    }
+  }
 }
 
 module.exports = new UserController();

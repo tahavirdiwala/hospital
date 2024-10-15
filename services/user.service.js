@@ -132,7 +132,7 @@ class UserService {
             expiresIn: process.env.JWT_PASSWORD_RESET_EXPIRE,
           });
 
-          const resetUrl = `http://localhost:5000/api/user/request-password-reset/?id=${user._id}&token=${token}`;
+          const resetUrl = `http://localhost:5000/api/user/reset-password/${user._id}/${token}`;
 
           const transporter = nodemailer.createTransport({
             service: "gmail",
@@ -162,6 +162,39 @@ class UserService {
 
           await transporter.sendMail(options);
           resolve(resetUrl);
+        } else reject("User does not exist");
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  async resetPassword(req) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const { id, token } = req.params;
+        const { password } = req.body;
+
+        const user = await User.findOne({ _id: id });
+
+        if (user) {
+          const secret = process.env.JWT_SECRET + password;
+
+          const verify = jwt.verify(token, secret);
+
+          const encryptPassword = await bcrypt.hash(password, 10);
+
+          await User.findOne(
+            { _id: id },
+            {
+              $set: {
+                password: encryptPassword,
+              },
+            }
+          );
+
+          await user.save();
+          resolve();
         } else reject("User does not exist");
       } catch (error) {
         reject(error);

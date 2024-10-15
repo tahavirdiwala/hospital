@@ -6,6 +6,10 @@ loginRouter.route("/user/register").post(userController.register);
 
 loginRouter.route("/user/login").post(userController.login);
 
+loginRouter
+  .route("/user/request-password-reset")
+  .post(userController.requestPasswordReset);
+
 router.route("/user").get(userController.getAll);
 
 router.route("/user/logout").get(userController.logout);

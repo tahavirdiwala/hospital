@@ -3,6 +3,7 @@ const { SALT_PASSWORD_CONFIG } = require("../lib/constant");
 const User = require("../models/user.model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 
 class UserService {
   async register(req) {
@@ -116,6 +117,56 @@ class UserService {
 
   async logout(req, res) {
     res.clearCookie("jwt");
+  }
+
+  async requestedPasswordReset(req, res, next) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const userData = await User.findOne({ email: req.body.email });
+        const { password, ...user } = userData.toJSON();
+
+        if (userData) {
+          const secret = process.env.JWT_SECRET + password;
+
+          const token = jwt.sign(user, secret, {
+            expiresIn: process.env.JWT_PASSWORD_RESET_EXPIRE,
+          });
+
+          const resetUrl = `http://localhost:5000/api/user/request-password-reset/?id=${user._id}&token=${token}`;
+
+          const transporter = nodemailer.createTransport({
+            service: "gmail",
+            port: 465,
+            secure: true,
+            logger: true,
+            debug: true,
+            secureConnection: false,
+            auth: {
+              user: process.env.EMAIL,
+              pass: process.env.PASSWORD,
+            },
+            tls: {
+              rejectUnAuthorized: true,
+            },
+          });
+
+          const options = {
+            from: process.env.EMAIL,
+            to: "taha@redefinesolutions.com",
+            subject: "Password Reset Request",
+            text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n
+            Please click on the following link, or paste this into your browser to complete the process:\n\n
+            ${resetUrl}\n\n
+            If you did not request this, please ignore this email and your password will remain unchanged.\n`,
+          };
+
+          await transporter.sendMail(options);
+          resolve(resetUrl);
+        } else reject("User does not exist");
+      } catch (error) {
+        reject(error);
+      }
+    });
   }
 }
 

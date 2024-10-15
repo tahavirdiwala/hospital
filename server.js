@@ -7,13 +7,13 @@ const app = express();
 const cookie = require("cookie-parser");
 const { SERVER_CONFIG } = require("./lib/constant");
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookie());
 routes(app);
 app.all("*", errorConfig.invalidRoute);
 app.use(errorConfig.default);
-app.use(cors());
 
 start();
 

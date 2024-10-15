@@ -116,7 +116,7 @@ class UserService {
   }
 
   async logout(req, res) {
-    return res.clearCookie("jwt");
+    res.clearCookie("jwt");
   }
 }
 

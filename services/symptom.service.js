@@ -54,7 +54,7 @@ class SymptomService {
       Symptom.findByIdAndDelete(req.params.id)
         .then((response) => {
           if (Object.keys(response || {}).length > 0) {
-            resolve("Symptom Deleted SuccessFully");
+            resolve();
           } else {
             reject("Symptom does not exist");
           }

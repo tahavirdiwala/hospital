@@ -31,13 +31,15 @@ class TeleMedicineSessionService {
 
   async delete(req) {
     return new Promise((resolve, reject) => {
-      TeleMedicineSession.findByIdAndDelete(req.params.id).then((response) => {
-        if (Object.keys(response || {}).length > 0) {
-          resolve("Telemedicine Session Deleted SuccessFully");
-        } else {
-          reject("Telemedicine Session does not exist");
-        }
-      });
+      TeleMedicineSession.findByIdAndDelete(req.params.id)
+        .then((response) => {
+          if (Object.keys(response || {}).length > 0) {
+            resolve();
+          } else {
+            reject("Telemedicine Session does not exist");
+          }
+        })
+        .catch(reject);
     });
   }
 }

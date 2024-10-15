@@ -105,7 +105,7 @@ class UserService {
       User.findByIdAndDelete(id)
         .then((response) => {
           if (Object.keys(response || {}).length > 0) {
-            resolve("User Deleted SuccessFully");
+            resolve();
           } else {
             reject("User does not exist");
           }

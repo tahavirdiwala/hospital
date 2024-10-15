@@ -38,7 +38,7 @@ class MedicationService {
       Medication.findByIdAndDelete(req.params.id)
         .then((response) => {
           if (Object.keys(response || {}).length > 0) {
-            resolve("Medication Deleted SuccessFully");
+            resolve();
           } else {
             reject("Medication does not exist");
           }

@@ -54,7 +54,7 @@ class UserService {
             user = user.toJSON();
             delete user.password;
 
-            res.cookie("jwt", token, { httpOnly: true, maxAge: 10000 });
+            res.cookie("jwt", token, { expire: process.env.JWT_EXPIRE });
 
             resolve({ ...user, token });
           } else {

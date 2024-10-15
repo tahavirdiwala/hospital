@@ -26,6 +26,7 @@ function checkUserAuthentication(req, res, next) {
         }
       } else {
         decoded = tokenRes;
+        req.userId = decoded.id;
       }
     });
   } else {

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose"),
   Schema = mongoose;
 
-const AppointmentSchema = new mongoose.Schema(
+const appointmentSchema = new mongoose.Schema(
   {
     userId: {
       type: Schema.Types.ObjectId,
@@ -25,5 +25,5 @@ const AppointmentSchema = new mongoose.Schema(
   }
 );
 
-const Appointment = mongoose.model("Appointment", AppointmentSchema);
+const Appointment = mongoose.model("Appointment", appointmentSchema);
 module.exports = Appointment;

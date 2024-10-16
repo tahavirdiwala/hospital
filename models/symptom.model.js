@@ -1,7 +1,7 @@
 const mongoose = require("mongoose"),
   Schema = mongoose;
 
-const SymptomsSchema = new mongoose.Schema(
+const symptomsSchema = new mongoose.Schema(
   {
     userId: [
       {
@@ -24,5 +24,5 @@ const SymptomsSchema = new mongoose.Schema(
   }
 );
 
-const Symptom = mongoose.model("Symptom", SymptomsSchema);
+const Symptom = mongoose.model("Symptom", symptomsSchema);
 module.exports = Symptom;

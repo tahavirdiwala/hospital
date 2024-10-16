@@ -18,11 +18,11 @@ const sendResponse = (res, statusCode, response, data = null) => {
     .json({ statusCode, message: response, ...(data && { data }) });
 };
 
-const hashPassword = async (userPassword) => {
+const hashField = async (password) => {
   return await bcrypt.hash(userPassword, SALT_PASSWORD_CONFIG.RANGE);
 };
 
 module.exports = {
   sendResponse,
-  hashPassword,
+  hashField,
 };

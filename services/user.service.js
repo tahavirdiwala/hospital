@@ -4,7 +4,7 @@ const User = require("../models/user.model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
-const { hashPassword } = require("../common/common");
+const { hashField } = require("../common/common");
 const { createTokenFor } = require("../middlewares/token.middleware");
 
 class UserService {
@@ -175,7 +175,7 @@ class UserService {
 
           const user = await User.findOne({ email: decode.email });
 
-          const newPassword = await hashPassword(password);
+          const newPassword = await hashField(password);
 
           user.password = newPassword;
           await user.save();

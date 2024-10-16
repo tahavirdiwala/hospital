@@ -69,10 +69,10 @@ class UserController {
     }
   }
 
-  async requestPasswordReset(req, res) {
+  async forgotPassword(req, res) {
     try {
-      const response = await userService.requestedPasswordReset(req, res);
-      sendResponse(res, StatusCodes.OK, MESSAGE.requestPassword, response);
+      const response = await userService.forgotPassword(req);
+      sendResponse(res, StatusCodes.OK, MESSAGE.forgotPassword, response);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }

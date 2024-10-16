@@ -4,6 +4,8 @@ const User = require("../models/user.model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
+const { hashPassword } = require("../common/common");
+const { createTokenFor } = require("../middlewares/token.middleware");
 
 class UserService {
   async register(req) {
@@ -43,18 +45,12 @@ class UserService {
             req.body.password,
             password
           );
-          if (validPassword) {
-            let token = jwt.sign(
-              {
-                user,
-              },
-              process.env.JWT_SECRET,
-              {
-                expiresIn: process.env.JWT_EXPIRE,
-              }
-            );
 
-            res.cookie("jwt", token, { expire: process.env.JWT_EXPIRE });
+          if (validPassword) {
+            const expiry = process.env.JWT_EXPIRE;
+            const token = createTokenFor(user, expiry);
+
+            res.cookie("jwt", token, { expire: expiry });
 
             resolve({ ...user, token });
           } else {
@@ -119,20 +115,19 @@ class UserService {
     res.clearCookie("jwt");
   }
 
-  async requestedPasswordReset(req, res, next) {
+  async forgotPassword(req) {
     return new Promise(async (resolve, reject) => {
       try {
         const userData = await User.findOne({ email: req.body.email });
         const { password, ...user } = userData.toJSON();
 
         if (userData) {
-          const secret = process.env.JWT_SECRET + password;
+          const token = createTokenFor(
+            user,
+            process.env.JWT_PASSWORD_RESET_EXPIRE
+          );
 
-          const token = jwt.sign(user, secret, {
-            expiresIn: process.env.JWT_PASSWORD_RESET_EXPIRE,
-          });
-
-          const resetUrl = `http://localhost:5000/api/user/reset-password/${user._id}/${token}`;
+          const resetUrl = `${process.env.CLIENT_URL}/user/reset-password/${token}`;
 
           const transporter = nodemailer.createTransport({
             service: "gmail",
@@ -150,9 +145,9 @@ class UserService {
             },
           });
 
-          const options = {
-            from: process.env.EMAIL,
-            to: "taha@redefinesolutions.com",
+          const receiver = {
+            from: "somerandom@gmail.com",
+            to: user.email,
             subject: "Password Reset Request",
             text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n
             Please click on the following link, or paste this into your browser to complete the process:\n\n
@@ -160,7 +155,7 @@ class UserService {
             If you did not request this, please ignore this email and your password will remain unchanged.\n`,
           };
 
-          await transporter.sendMail(options);
+          await transporter.sendMail(receiver);
           resolve(resetUrl);
         } else reject("User does not exist");
       } catch (error) {
@@ -172,30 +167,21 @@ class UserService {
   async resetPassword(req) {
     return new Promise(async (resolve, reject) => {
       try {
-        const { id, token } = req.params;
+        const { token } = req.params;
         const { password } = req.body;
 
-        const user = await User.findOne({ _id: id });
+        if (password) {
+          const decode = jwt.verify(token, process.env.JWT_SECRET);
 
-        if (user) {
-          const secret = process.env.JWT_SECRET + password;
+          const user = await User.findOne({ email: decode.email });
 
-          const verify = jwt.verify(token, secret);
+          const newPassword = await hashPassword(password);
 
-          const encryptPassword = await bcrypt.hash(password, 10);
-
-          await User.findOne(
-            { _id: id },
-            {
-              $set: {
-                password: encryptPassword,
-              },
-            }
-          );
-
+          user.password = newPassword;
           await user.save();
+
           resolve();
-        } else reject("User does not exist");
+        } else reject("Please Provide Password");
       } catch (error) {
         reject(error);
       }

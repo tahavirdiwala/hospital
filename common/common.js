@@ -1,5 +1,7 @@
 const { response } = require("express");
 require("dotenv").config();
+const bcrypt = require("bcryptjs");
+const { SALT_PASSWORD_CONFIG } = require("../lib/constant");
 
 /**
  * Sends a JSON response with a status code, message, and optional data.
@@ -16,6 +18,11 @@ const sendResponse = (res, statusCode, response, data = null) => {
     .json({ statusCode, message: response, ...(data && { data }) });
 };
 
+const hashPassword = async (userPassword) => {
+  return await bcrypt.hash(userPassword, SALT_PASSWORD_CONFIG.RANGE);
+};
+
 module.exports = {
   sendResponse,
+  hashPassword,
 };

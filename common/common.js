@@ -19,7 +19,7 @@ const sendResponse = (res, statusCode, response, data = null) => {
 };
 
 const hashField = async (password) => {
-  return await bcrypt.hash(userPassword, SALT_PASSWORD_CONFIG.RANGE);
+  return await bcrypt.hash(password, SALT_PASSWORD_CONFIG.RANGE);
 };
 
 module.exports = {

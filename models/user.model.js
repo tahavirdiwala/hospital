@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const UsersSchema = new mongoose.Schema(
+const UserSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -34,8 +34,14 @@ const UsersSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    statics: {
+      async findBy(email) {
+        const userData = await this.findOne({ email });
+        return ({ password, ...user } = userData.toJSON());
+      },
+    },
   }
 );
 
-const User = mongoose.model("User", UsersSchema);
+const User = mongoose.model("User", UserSchema);
 module.exports = User;

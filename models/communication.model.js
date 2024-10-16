@@ -1,7 +1,7 @@
 const mongoose = require("mongoose"),
   Schema = mongoose;
 
-const CommunicationSchema = new mongoose.Schema(
+const communicationSchema = new mongoose.Schema(
   {
     senderId: {
       type: Schema.Types.ObjectId,
@@ -26,5 +26,5 @@ const CommunicationSchema = new mongoose.Schema(
   }
 );
 
-const Communication = mongoose.model("Communication", CommunicationSchema);
+const Communication = mongoose.model("Communication", communicationSchema);
 module.exports = Communication;

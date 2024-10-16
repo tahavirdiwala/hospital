@@ -1,7 +1,7 @@
 const mongoose = require("mongoose"),
   Schema = mongoose;
 
-const TeleMedicineSchema = new mongoose.Schema(
+const teleMedicineSchema = new mongoose.Schema(
   {
     userId: {
       type: Schema.Types.ObjectId,
@@ -28,6 +28,6 @@ const TeleMedicineSchema = new mongoose.Schema(
 
 const TeleMedicineSession = mongoose.model(
   "TeleMedicineSession",
-  TeleMedicineSchema
+  teleMedicineSchema
 );
 module.exports = TeleMedicineSession;

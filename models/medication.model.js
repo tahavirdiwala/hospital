@@ -1,7 +1,7 @@
 const mongoose = require("mongoose"),
   Schema = mongoose;
 
-const MedicationSchema = new mongoose.Schema(
+const medicationSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -30,5 +30,5 @@ const MedicationSchema = new mongoose.Schema(
   }
 );
 
-const Medication = mongoose.model("Medication", MedicationSchema);
+const Medication = mongoose.model("Medication", medicationSchema);
 module.exports = Medication;

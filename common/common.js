@@ -22,7 +22,12 @@ const hashField = async (password) => {
   return await bcrypt.hash(password, SALT_PASSWORD_CONFIG.RANGE);
 };
 
+const compare = async (password, hashedPassword) => {
+  return await bcrypt.compare(password, hashedPassword);
+};
+
 module.exports = {
   sendResponse,
   hashField,
+  compare,
 };

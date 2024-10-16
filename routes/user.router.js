@@ -6,6 +6,8 @@ loginRouter.route("/user/register").post(userController.register);
 
 loginRouter.route("/user/login").post(userController.login);
 
+loginRouter.route("/user/change-password").post(userController.changePassword);
+
 loginRouter.route("/user/forgot-password").post(userController.forgotPassword);
 
 loginRouter

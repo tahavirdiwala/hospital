@@ -4,7 +4,7 @@ const User = require("../models/user.model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
-const { hashField } = require("../common/common");
+const { hashField, compare } = require("../common/common");
 const { createTokenFor } = require("../middlewares/token.middleware");
 
 class UserService {
@@ -41,10 +41,7 @@ class UserService {
         const { password, ...user } = userData.toJSON();
 
         if (userData) {
-          const validPassword = await bcrypt.compare(
-            req.body.password,
-            password
-          );
+          const validPassword = await compare(req.body.password, password);
 
           if (validPassword) {
             const expiry = process.env.JWT_EXPIRE;
@@ -52,7 +49,7 @@ class UserService {
 
             res.cookie("jwt", token, { expire: expiry });
 
-            resolve({ ...user, token });
+            resolve({ ...user });
           } else {
             reject("Password is incorrect");
           }
@@ -113,6 +110,37 @@ class UserService {
 
   async logout(req, res) {
     res.clearCookie("jwt");
+  }
+
+  async changePassword(req) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const { email, currentPassword, newPassword } = req.body;
+
+        const payload = { email, currentPassword, newPassword };
+
+        if (Object.keys(payload).some((field) => !payload[field]))
+          reject("Please provide necessary fields");
+        else {
+          const user = await User.findOne({ email });
+
+          if (user) {
+            const validPassword = await compare(currentPassword, user.password);
+
+            if (validPassword) {
+              const hashedPassword = await hashField(newPassword);
+
+              await User.updateOne(
+                { email },
+                { password: hashedPassword }
+              ).then(resolve);
+            } else reject("Current password does not match");
+          } else reject("User not found please register");
+        }
+      } catch (error) {
+        reject(error);
+      }
+    });
   }
 
   async forgotPassword(req) {

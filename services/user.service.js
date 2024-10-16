@@ -3,6 +3,9 @@ const { SALT_PASSWORD_CONFIG } = require("../lib/constant");
 const User = require("../models/user.model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
+const { hashField } = require("../common/common");
+const { createTokenFor } = require("../middlewares/token.middleware");
 
 class UserService {
   async register(req) {
@@ -42,18 +45,12 @@ class UserService {
             req.body.password,
             password
           );
-          if (validPassword) {
-            let token = jwt.sign(
-              {
-                user,
-              },
-              process.env.JWT_SECRET,
-              {
-                expiresIn: process.env.JWT_EXPIRE,
-              }
-            );
 
-            res.cookie("jwt", token, { expire: process.env.JWT_EXPIRE });
+          if (validPassword) {
+            const expiry = process.env.JWT_EXPIRE;
+            const token = createTokenFor(user, expiry);
+
+            res.cookie("jwt", token, { expire: expiry });
 
             resolve({ ...user, token });
           } else {
@@ -116,6 +113,79 @@ class UserService {
 
   async logout(req, res) {
     res.clearCookie("jwt");
+  }
+
+  async forgotPassword(req) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const userData = await User.findOne({ email: req.body.email });
+        const { password, ...user } = userData.toJSON();
+
+        if (userData) {
+          const token = createTokenFor(
+            user,
+            process.env.JWT_PASSWORD_RESET_EXPIRE
+          );
+
+          const resetUrl = `${process.env.CLIENT_URL}/user/reset-password/${token}`;
+
+          const transporter = nodemailer.createTransport({
+            service: "gmail",
+            port: 465,
+            secure: true,
+            logger: true,
+            debug: true,
+            secureConnection: false,
+            auth: {
+              user: process.env.EMAIL,
+              pass: process.env.PASSWORD,
+            },
+            tls: {
+              rejectUnAuthorized: true,
+            },
+          });
+
+          const receiver = {
+            from: "somerandom@gmail.com",
+            to: user.email,
+            subject: "Password Reset Request",
+            text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n
+            Please click on the following link, or paste this into your browser to complete the process:\n\n
+            ${resetUrl}\n\n
+            If you did not request this, please ignore this email and your password will remain unchanged.\n`,
+          };
+
+          await transporter.sendMail(receiver);
+          resolve(resetUrl);
+        } else reject("User does not exist");
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  async resetPassword(req) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const { token } = req.params;
+        const { password } = req.body;
+
+        if (password) {
+          const decode = jwt.verify(token, process.env.JWT_SECRET);
+
+          const user = await User.findOne({ email: decode.email });
+
+          const newPassword = await hashField(password);
+
+          user.password = newPassword;
+          await user.save();
+
+          resolve();
+        } else reject("Please Provide Password");
+      } catch (error) {
+        reject(error);
+      }
+    });
   }
 }
 

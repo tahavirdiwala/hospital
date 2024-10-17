@@ -44,7 +44,7 @@ const userSchema = new mongoose.Schema(
                 const { password, ...user } = response.toJSON();
                 resolve({ user, password });
               } else {
-                reject(`User with ${email} not found please check your email`);
+                reject(`User with ${email} not found`);
               }
             })
             .catch(reject);

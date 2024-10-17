@@ -49,7 +49,7 @@ class UserService {
 
             res.cookie("jwt", token, { expire: expiry });
 
-            resolve({ ...user });
+            resolve(user);
           } else {
             reject("Password is incorrect");
           }

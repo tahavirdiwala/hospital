@@ -50,10 +50,14 @@ class AuthService {
           const validPassword = await compare(req.body.password, password);
 
           if (validPassword) {
-            const expiry = process.env.JWT_EXPIRE;
-            const token = createTokenFor(user, expiry);
+            const expires = process.env.JWT_EXPIRE;
 
-            res.cookie("jwt", token, { expire: expiry });
+            const token = createTokenFor(user, expires);
+
+            const d = new Date();
+            d.setTime(d.getTime() + 12 * 60 * 60 * 1000);
+
+            res.cookie("jwt", token, { expires: d });
 
             resolve(user);
           } else {

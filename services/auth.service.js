@@ -68,6 +68,10 @@ class AuthService {
     });
   }
 
+  async logout(req, res) {
+    res.clearCookie("jwt");
+  }
+
   async changePassword(req) {
     return new Promise(async (resolve, reject) => {
       try {

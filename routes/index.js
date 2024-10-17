@@ -1,5 +1,6 @@
 const { Express } = require("express");
-const { userRouter, loginRouter } = require("./user.router");
+const authRouter = require("./auth.router");
+const userRouter = require("./user.router");
 const symptomRouter = require("./symptom.router");
 const doctorRouter = require("./doctor.router");
 const appointmentRouter = require("./appointment.router");
@@ -16,7 +17,7 @@ const { applyAuthentication } = require("../middlewares/auth.middleware");
 
 function routes(app) {
   const defaultRoute = "/api";
-  app.use(defaultRoute, loginRouter);
+  app.use(defaultRoute, authRouter);
 
   [
     userRouter,

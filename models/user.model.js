@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
+      required: true,
     },
     phoneNumber: {
       type: Number,
@@ -36,8 +37,18 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
     statics: {
       async findBy(email) {
-        const userData = await this.findOne({ email });
-        return ({ password, ...user } = userData.toJSON());
+        return new Promise((resolve, reject) => {
+          this.findOne({ email })
+            .then((response) => {
+              if (response) {
+                const { password, ...user } = response.toJSON();
+                resolve({ user, password });
+              } else {
+                reject(`User with ${email} not found please check your email`);
+              }
+            })
+            .catch(reject);
+        });
       },
     },
   }

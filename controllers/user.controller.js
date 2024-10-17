@@ -6,24 +6,6 @@ const {
 } = require("../lib/constant");
 
 class UserController {
-  async register(req, res) {
-    try {
-      const user = await userService.register(req);
-      sendResponse(res, StatusCodes.CREATED, MESSAGE.register, user);
-    } catch (error) {
-      sendResponse(res, StatusCodes.BAD_REQUEST, error);
-    }
-  }
-
-  async login(req, res) {
-    try {
-      const user = await userService.login(req, res);
-      sendResponse(res, StatusCodes.OK, MESSAGE.login, user);
-    } catch (error) {
-      sendResponse(res, StatusCodes.BAD_REQUEST, error);
-    }
-  }
-
   async getAll(req, res) {
     try {
       const users = await userService.getAll(req);
@@ -55,42 +37,6 @@ class UserController {
     try {
       await userService.delete(req);
       sendResponse(res, StatusCodes.OK, MESSAGE.delete);
-    } catch (error) {
-      sendResponse(res, StatusCodes.BAD_REQUEST, error);
-    }
-  }
-
-  async logout(req, res) {
-    try {
-      await userService.logout(req, res);
-      sendResponse(res, StatusCodes.OK, MESSAGE.logout);
-    } catch (error) {
-      sendResponse(res, StatusCodes.BAD_REQUEST, error);
-    }
-  }
-
-  async changePassword(req, res) {
-    try {
-      await userService.changePassword(req);
-      sendResponse(res, StatusCodes.OK, MESSAGE.changePassword);
-    } catch (error) {
-      sendResponse(res, StatusCodes.BAD_REQUEST, error);
-    }
-  }
-
-  async forgotPassword(req, res) {
-    try {
-      const response = await userService.forgotPassword(req);
-      sendResponse(res, StatusCodes.OK, MESSAGE.forgotPassword, response);
-    } catch (error) {
-      sendResponse(res, StatusCodes.BAD_REQUEST, error);
-    }
-  }
-
-  async resetPassword(req, res) {
-    try {
-      const response = await userService.resetPassword(req, res);
-      sendResponse(res, StatusCodes.OK, MESSAGE.resetPassword, response);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }

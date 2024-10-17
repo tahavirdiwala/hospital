@@ -49,10 +49,6 @@ class UserService {
         .catch(reject);
     });
   }
-
-  async logout(req, res) {
-    res.clearCookie("jwt");
-  }
 }
 
 module.exports = new UserService();

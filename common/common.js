@@ -26,11 +26,11 @@ const compare = async (password, hashedPassword) => {
   return await bcrypt.compare(password, hashedPassword);
 };
 
-const validate = (fields, mapper) => {
+const validate = (fields, body) => {
   let message = "";
 
   fields.some((field) => {
-    if (!mapper[field]) {
+    if (!body[field]) {
       message = `${field} is required`;
       return true;
     }

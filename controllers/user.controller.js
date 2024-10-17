@@ -80,8 +80,8 @@ class UserController {
 
   async forgotPassword(req, res) {
     try {
-      const response = await userService.forgotPassword(req);
-      sendResponse(res, StatusCodes.OK, MESSAGE.forgotPassword, response);
+      await userService.forgotPassword(req);
+      sendResponse(res, StatusCodes.OK, MESSAGE.forgotPassword);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }

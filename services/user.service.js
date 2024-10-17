@@ -6,6 +6,11 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const { hashField, compare } = require("../common/common");
 const { createTokenFor } = require("../middlewares/token.middleware");
+const {
+  RESPONSE_MESSAGE: {
+    user: { receiver, transporter: mailPayload },
+  },
+} = require("../lib/constant");
 
 class UserService {
   async register(req) {
@@ -37,10 +42,9 @@ class UserService {
   async login(req, res) {
     return new Promise(async (resolve, reject) => {
       try {
-        const userData = await User.findOne({ email: req.body.email });
-        const { password, ...user } = userData.toJSON();
+        const { password, user } = await User.findBy(req.body.email);
 
-        if (userData) {
+        if (user) {
           const validPassword = await compare(req.body.password, password);
 
           if (validPassword) {
@@ -146,46 +150,23 @@ class UserService {
   async forgotPassword(req) {
     return new Promise(async (resolve, reject) => {
       try {
-        const userData = await User.findOne({ email: req.body.email });
-        const { password, ...user } = userData.toJSON();
+        const { user } = await User.findBy(req.body.email);
 
-        if (userData) {
-          const token = createTokenFor(
-            user,
-            process.env.JWT_PASSWORD_RESET_EXPIRE
-          );
+        const token = createTokenFor(
+          user,
+          process.env.JWT_PASSWORD_RESET_EXPIRE
+        );
 
-          const resetUrl = `${process.env.CLIENT_URL}/user/reset-password/${token}`;
+        const url = `${process.env.CLIENT_URL}/user/reset-password/${token}`;
+        const transporter = nodemailer.createTransport(mailPayload);
 
-          const transporter = nodemailer.createTransport({
-            service: "gmail",
-            port: 465,
-            secure: true,
-            logger: true,
-            debug: true,
-            secureConnection: false,
-            auth: {
-              user: process.env.EMAIL,
-              pass: process.env.PASSWORD,
-            },
-            tls: {
-              rejectUnAuthorized: true,
-            },
-          });
+        const option = {
+          ...receiver,
+          text: receiver.text(url),
+          to: user.email,
+        };
 
-          const receiver = {
-            from: "somerandom@gmail.com",
-            to: user.email,
-            subject: "Password Reset Request",
-            text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n
-            Please click on the following link, or paste this into your browser to complete the process:\n\n
-            ${resetUrl}\n\n
-            If you did not request this, please ignore this email and your password will remain unchanged.\n`,
-          };
-
-          await transporter.sendMail(receiver);
-          resolve(resetUrl);
-        } else reject("User does not exist");
+        transporter.sendMail(option).then(resolve);
       } catch (error) {
         reject(error);
       }

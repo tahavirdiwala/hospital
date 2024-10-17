@@ -7,9 +7,7 @@ const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 const { SALT_PASSWORD_CONFIG } = require("../lib/constant");
 const {
-  RESPONSE_MESSAGE: {
-    auth: { receiver, transporter: mailPayload },
-  },
+  RESPONSE_MESSAGE: { auth },
 } = require("../lib/constant");
 
 class AuthService {
@@ -118,11 +116,11 @@ class AuthService {
         );
 
         const url = `${process.env.CLIENT_URL}/auth/reset-password/${token}`;
-        const transporter = nodemailer.createTransport(mailPayload);
+        const transporter = nodemailer.createTransport(auth.transporter);
 
         const option = {
-          ...receiver,
-          text: receiver.text(url),
+          ...auth.receiver,
+          text: auth.receiver.text(url),
           to: user.email,
         };
 

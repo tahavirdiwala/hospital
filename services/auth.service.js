@@ -54,10 +54,10 @@ class AuthService {
 
             const token = createTokenFor(user, expires);
 
-            const d = new Date();
-            d.setTime(d.getTime() + 12 * 60 * 60 * 1000);
+            const cookieExpiry = new Date();
+            cookieExpiry.setTime(cookieExpiry.getTime() + 12 * 60 * 60 * 1000);
 
-            res.cookie("jwt", token, { expires: d });
+            res.cookie("jwt", token, { expires: cookieExpiry });
 
             resolve(user);
           } else {

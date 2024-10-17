@@ -26,8 +26,25 @@ const compare = async (password, hashedPassword) => {
   return await bcrypt.compare(password, hashedPassword);
 };
 
+const validate = (fields, mapper) => {
+  let message = "";
+
+  fields.some((field) => {
+    if (!mapper[field]) {
+      message = `${field} is required`;
+      return true;
+    }
+    return false;
+  });
+
+  if (message.length > 0) {
+    throw new Error(message);
+  }
+};
+
 module.exports = {
   sendResponse,
   hashField,
+  validate,
   compare,
 };

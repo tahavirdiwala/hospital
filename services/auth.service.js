@@ -1,6 +1,6 @@
 require("dotenv").config();
 const User = require("../models/user.model");
-const { compare, hashField } = require("../common/common");
+const { compare, hashField, validate } = require("../common/common");
 const { createTokenFor } = require("../middlewares/token.middleware");
 const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
@@ -42,6 +42,8 @@ class AuthService {
   async login(req, res) {
     return new Promise(async (resolve, reject) => {
       try {
+        validate(["email", "password"], req.body);
+
         const { password, user } = await User.findBy(req.body.email);
 
         if (user) {

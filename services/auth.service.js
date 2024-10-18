@@ -92,10 +92,9 @@ class AuthService {
             if (validPassword) {
               const hashedPassword = await hashField(newPassword);
 
-              await User.updateOne(
-                { email },
-                { password: hashedPassword }
-              ).then(resolve);
+              await User.updateOne({ email }, { password: hashedPassword })
+                .then(resolve)
+                .catch(reject);
             } else reject("Current password does not match");
           } else reject("User not found please register");
         }
@@ -124,7 +123,7 @@ class AuthService {
           to: user.email,
         };
 
-        transporter.sendMail(option).then(resolve);
+        transporter.sendMail(option).then(resolve).catch(reject);
       } catch (error) {
         reject(error);
       }

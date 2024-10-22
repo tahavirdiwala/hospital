@@ -20,8 +20,6 @@ class SymptomController {
       const symptoms = await symptomService.getAll(req);
       sendResponse(res, StatusCodes.OK, MESSAGE.all, symptoms);
     } catch (error) {
-      console.log("error", error);
-
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
   }

@@ -12,8 +12,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookie());
 routes(app);
 app.use("/static", express.static("static"));
-// app.all("*", errorConfig.invalidRoute);
-// app.use(errorConfig.default);
 
 start();
 

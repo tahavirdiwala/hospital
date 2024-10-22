@@ -50,6 +50,15 @@ class DoctorController {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }
   }
+
+  async getAllProfile(req, res) {
+    try {
+      const profilePics = await doctorService.getAllProfilePic(req);
+      sendResponse(res, StatusCodes.OK, MESSAGE.allProfilePic, profilePics);
+    } catch (error) {
+      sendResponse(res, StatusCodes.BAD_REQUEST, error);
+    }
+  }
 }
 
 module.exports = new DoctorController();

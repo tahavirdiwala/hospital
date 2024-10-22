@@ -2,18 +2,18 @@ const Doctor = require("../models/doctor.model");
 
 class DoctorService {
   async add(req) {
-    const payload = {
-      ...req.body,
-      profilePicture: req.file.filename,
-    };
     return new Promise((resolve, reject) => {
+      const payload = {
+        ...req.body,
+        profilePicture: req.file.filename,
+      };
       Doctor.create(payload).then(resolve).catch(reject);
     });
   }
 
   async getAll(req) {
     return new Promise((resolve, reject) => {
-      const { page = 1, limit = 10 } = req.params;
+      const { page = 1, limit = 10 } = req.query;
 
       Doctor.find()
         .limit(limit * 1)
@@ -31,7 +31,12 @@ class DoctorService {
 
   async edit(req) {
     return new Promise((resolve, reject) => {
-      Doctor.findByIdAndUpdate(req.params.id, req.body)
+      const payload = {
+        ...req.body,
+        profilePicture: req.file.filename,
+      };
+
+      Doctor.findByIdAndUpdate(req.params.id, payload)
         .then(resolve)
         .catch(reject);
     });
@@ -46,6 +51,29 @@ class DoctorService {
           } else {
             reject("Doctor does not exist");
           }
+        })
+        .catch(reject);
+    });
+  }
+
+  async getAllProfilePic(req) {
+    return new Promise((resolve, reject) => {
+      const { page = 1, limit = 10 } = req.query;
+
+      const selectors = {
+        profilePicture: 1,
+      };
+
+      Doctor.find()
+        .select(selectors)
+        .limit(limit * 1)
+        .skip((page - 1) * limit)
+        .then((resp) => {
+          const profilePics = resp.map((item) => ({
+            ...item.toJSON(),
+            profilePicture: `${process.env.CLIENT_URL_PIC}/static/${item?.profilePicture}`,
+          }));
+          resolve(profilePics);
         })
         .catch(reject);
     });

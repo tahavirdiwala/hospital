@@ -52,10 +52,10 @@ class AuthService {
 
             const token = createTokenFor(user, expires);
 
-            const cookieExpiry = new Date();
-            cookieExpiry.setTime(cookieExpiry.getTime() + 12 * 60 * 60 * 1000);
-
-            res.cookie("jwt", token, { expires: cookieExpiry });
+            res.cookie("jwt", token, {
+              maxAge: 12 * 60 * 60 * 1000,
+              httpOnly: true,
+            });
 
             resolve(user);
           } else {

@@ -60,21 +60,25 @@ class DoctorService {
     return new Promise((resolve, reject) => {
       const { page = 1, limit = 10 } = req.query;
 
-      const selectors = {
-        profilePicture: 1,
-      };
-
-      Doctor.find()
-        .select(selectors)
-        .limit(limit * 1)
-        .skip((page - 1) * limit)
-        .then((resp) => {
-          const profilePics = resp.map((item) => ({
-            ...item.toJSON(),
-            profilePicture: `${process.env.CLIENT_URL_PIC}/static/${item?.profilePicture}`,
-          }));
-          resolve(profilePics);
-        })
+      Doctor.aggregate([
+        {
+          $project: {
+            profilePicture: {
+              $concat: [
+                `${process.env.CLIENT_URL_PIC}/static/`,
+                "$profilePicture",
+              ],
+            },
+          },
+        },
+        {
+          $limit: limit * 1,
+        },
+        {
+          $skip: (page - 1) * limit,
+        },
+      ])
+        .then(resolve)
         .catch(reject);
     });
   }

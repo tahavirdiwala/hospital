@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const statics = require("../utils/users/static.util");
+const validate = require("../utils/users/validate.util");
 
 const userSchema = new mongoose.Schema(
   {
@@ -16,12 +18,7 @@ const userSchema = new mongoose.Schema(
     },
     phoneNumber: {
       type: Number,
-      validate: {
-        validator: function (value) {
-          return /^([0-9]{10}$)/.test(value);
-        },
-        message: (props) => `${props.value} should be exactly 10 digits long`,
-      },
+      validate: validate.phoneNumber,
     },
     gender: {
       type: String,
@@ -35,22 +32,7 @@ const userSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-    statics: {
-      async findBy(email) {
-        return new Promise((resolve, reject) => {
-          this.findOne({ email })
-            .then((response) => {
-              if (response) {
-                const { password, ...user } = response.toJSON();
-                resolve({ user, password });
-              } else {
-                reject(`User with ${email} not found`);
-              }
-            })
-            .catch(reject);
-        });
-      },
-    },
+    statics,
   }
 );
 

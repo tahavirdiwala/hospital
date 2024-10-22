@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const { sendResponse } = require("../common/common");
 const { StatusCodes } = require("http-status-codes");
 
-const applyAuthentication = async (req, res, next) => {
+const verifyAuthToken = async (req, res, next) => {
   try {
     return checkUserAuthentication(req, res, next);
   } catch (error) {
@@ -33,5 +33,5 @@ function checkUserAuthentication(req, res, next) {
 }
 
 module.exports = {
-  applyAuthentication,
+  verifyAuthToken,
 };

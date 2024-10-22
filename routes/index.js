@@ -9,7 +9,7 @@ const communicationRouter = require("./communication.router");
 const paymentRouter = require("./payment.router");
 const clinic = require("./clinic.router");
 const telemedicineSession = require("./telemedicineSession.router");
-const { applyAuthentication } = require("../middlewares/auth.middleware");
+const { verifyAuthToken } = require("../middlewares/auth.middleware");
 /**
  * Apply routes for specified routers.
  * @param {Express} app - Express response object.
@@ -30,7 +30,7 @@ function routes(app) {
     clinic,
     telemedicineSession,
   ].forEach((route) => {
-    app.use(defaultRoute, applyAuthentication, route);
+    app.use(defaultRoute, verifyAuthToken, route);
   });
 }
 

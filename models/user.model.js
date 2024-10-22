@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const statics = require("../utils/users/static.util");
 const validate = require("../utils/users/validate.util");
+const statics = require("../utils/users/static.util");
 
 const userSchema = new mongoose.Schema(
   {

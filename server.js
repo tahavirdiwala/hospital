@@ -2,7 +2,6 @@ const express = require("express");
 const connectDb = require("./database/connect");
 const cors = require("cors");
 const routes = require("./routes");
-const errorConfig = require("./middlewares/errorConfig.middleware");
 const app = express();
 const cookie = require("cookie-parser");
 const { SERVER_CONFIG } = require("./lib/constant");
@@ -12,9 +11,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookie());
 routes(app);
-app.all("*", errorConfig.invalidRoute);
-app.use(errorConfig.default);
 app.use("/static", express.static("static"));
+// app.all("*", errorConfig.invalidRoute);
+// app.use(errorConfig.default);
 
 start();
 

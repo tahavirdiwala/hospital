@@ -43,8 +43,8 @@ const validate = (fields, body) => {
 };
 
 module.exports = {
-  sendResponse,
-  hashField,
-  validate,
   compare,
+  validate,
+  hashField,
+  sendResponse,
 };

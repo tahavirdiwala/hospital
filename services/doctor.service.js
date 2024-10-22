@@ -2,8 +2,12 @@ const Doctor = require("../models/doctor.model");
 
 class DoctorService {
   async add(req) {
+    const payload = {
+      ...req.body,
+      profilePicture: req.file.filename,
+    };
     return new Promise((resolve, reject) => {
-      Doctor.create(req.body).then(resolve).catch(reject);
+      Doctor.create(payload).then(resolve).catch(reject);
     });
   }
 

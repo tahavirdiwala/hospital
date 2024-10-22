@@ -14,6 +14,7 @@ app.use(cookie());
 routes(app);
 app.all("*", errorConfig.invalidRoute);
 app.use(errorConfig.default);
+app.use("/static", express.static("static"));
 
 start();
 

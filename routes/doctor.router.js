@@ -1,8 +1,12 @@
 const doctorController = require("../controllers/doctor.controller");
-
 const router = require("express").Router();
 
-router.route("/doctor").post(doctorController.add).get(doctorController.getAll);
+const uploadProfilePic = require("../middlewares/profilepic-upload.middleware");
+
+router
+  .route("/doctor")
+  .post(uploadProfilePic.single("profilePicture"), doctorController.add)
+  .get(doctorController.getAll);
 
 router
   .route("/doctor/:id")

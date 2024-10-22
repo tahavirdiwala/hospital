@@ -72,10 +72,10 @@ class DoctorService {
           },
         },
         {
-          $limit: limit * 1,
+          $skip: (page - 1) * limit,
         },
         {
-          $skip: (page - 1) * limit,
+          $limit: limit * 1,
         },
       ])
         .then(resolve)

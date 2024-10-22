@@ -23,9 +23,7 @@ async function start() {
       console.log("database connected");
     });
     app.listen(SERVER_CONFIG.PORT, () => {
-      console.log(
-        "server is running on " + `http://localhost:${SERVER_CONFIG.PORT}`
-      );
+      console.log("server is running at port " + SERVER_CONFIG.PORT);
     });
   } catch (error) {
     console.log(error);

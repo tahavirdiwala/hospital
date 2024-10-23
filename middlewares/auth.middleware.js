@@ -23,7 +23,7 @@ function checkUserAuthentication(req, res, next) {
           throw new Error("Unauthorized - " + error.message);
         }
       } else {
-        req.user = tokenResponse.user;
+        req.user = tokenResponse;
       }
     });
   } else {

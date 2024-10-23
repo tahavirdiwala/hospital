@@ -42,11 +42,11 @@ const validate = (fields, body) => {
   }
 };
 
-const handleDelete = async (id, Model) => {
-  const entity = Object.keys(Model).toLocaleString();
+const handleDelete = async (id, model) => {
+  const entity = Object.keys(model).toLocaleString();
 
   return new Promise((resolve, reject) => {
-    Model[entity]
+    model[entity]
       .findByIdAndDelete(id)
       .then((response) => {
         if (Object.keys(response || {}).length > 0) {

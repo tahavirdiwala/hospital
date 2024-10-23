@@ -1,12 +1,10 @@
 const Doctor = require("../models/doctor.model");
+const uploadProfilePic = require("../utils/doctors/payload.util");
 
 class DoctorService {
   async add(req) {
     return new Promise((resolve, reject) => {
-      const payload = {
-        ...req.body,
-        profilePicture: req.file.filename,
-      };
+      const payload = uploadProfilePic(req);
       Doctor.create(payload).then(resolve).catch(reject);
     });
   }
@@ -31,10 +29,7 @@ class DoctorService {
 
   async edit(req) {
     return new Promise((resolve, reject) => {
-      const payload = {
-        ...req.body,
-        profilePicture: req.file.filename,
-      };
+      const payload = uploadProfilePic(req);
 
       Doctor.findByIdAndUpdate(req.params.id, payload)
         .then(resolve)

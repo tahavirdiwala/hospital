@@ -21,7 +21,7 @@ const doctorSchema = new mongoose.Schema(
       type: String,
     },
     profilePicture: {
-      type: String,
+      type: [String],
     },
     availableTimes: {
       type: [Date],

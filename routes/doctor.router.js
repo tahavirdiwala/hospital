@@ -5,7 +5,7 @@ const uploadProfilePic = require("../middlewares/profilepic-upload.middleware");
 
 router
   .route("/doctor")
-  .post(uploadProfilePic.single("profilePicture"), doctorController.add)
+  .post(uploadProfilePic.array("profilePicture[]"), doctorController.add)
   .get(doctorController.getAll);
 
 router.route("/doctor/profile-pic").get(doctorController.getAllProfile);

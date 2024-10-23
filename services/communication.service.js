@@ -1,3 +1,4 @@
+const { handleDelete } = require("../common/common");
 const Communication = require("../models/communication.model");
 
 class CommunicationService {
@@ -28,17 +29,7 @@ class CommunicationService {
   }
 
   async delete(req) {
-    return new Promise((resolve, reject) => {
-      Communication.findByIdAndDelete(req.params.id)
-        .then((response) => {
-          if (Object.keys(response || {}).length > 0) {
-            resolve();
-          } else {
-            reject("Communication does not exist");
-          }
-        })
-        .catch(reject);
-    });
+    return handleDelete(req.params.id, { Communication });
   }
 }
 module.exports = new CommunicationService();

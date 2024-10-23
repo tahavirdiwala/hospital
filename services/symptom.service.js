@@ -1,3 +1,4 @@
+const { handleDelete } = require("../common/common");
 const Symptom = require("../models/symptom.model");
 
 class SymptomService {
@@ -50,17 +51,7 @@ class SymptomService {
   }
 
   async delete(req) {
-    return new Promise((resolve, reject) => {
-      Symptom.findByIdAndDelete(req.params.id)
-        .then((response) => {
-          if (Object.keys(response || {}).length > 0) {
-            resolve();
-          } else {
-            reject("Symptom does not exist");
-          }
-        })
-        .catch(reject);
-    });
+    return handleDelete(req.params.id, { Symptom });
   }
 }
 

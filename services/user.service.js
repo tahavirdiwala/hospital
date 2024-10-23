@@ -1,4 +1,5 @@
 require("dotenv").config();
+const { handleDelete } = require("../common/common");
 const User = require("../models/user.model");
 
 class UserService {
@@ -36,18 +37,7 @@ class UserService {
   }
 
   async delete(req) {
-    return new Promise((resolve, reject) => {
-      const id = req.params.id;
-      User.findByIdAndDelete(id)
-        .then((response) => {
-          if (Object.keys(response || {}).length > 0) {
-            resolve();
-          } else {
-            reject("User does not exist");
-          }
-        })
-        .catch(reject);
-    });
+    return handleDelete(req.params.id, { User });
   }
 }
 

@@ -1,3 +1,4 @@
+const { handleDelete } = require("../common/common");
 const Doctor = require("../models/doctor.model");
 const uploadProfilePic = require("../utils/doctors/payload.util");
 
@@ -38,17 +39,7 @@ class DoctorService {
   }
 
   async delete(req) {
-    return new Promise((resolve, reject) => {
-      Doctor.findByIdAndDelete(req.params.id)
-        .then((response) => {
-          if (Object.keys(response || {}).length > 0) {
-            resolve();
-          } else {
-            reject("Doctor does not exist");
-          }
-        })
-        .catch(reject);
-    });
+    return handleDelete(req.params.id, { Doctor });
   }
 
   async getAllProfilePic(req) {

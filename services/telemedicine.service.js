@@ -1,3 +1,4 @@
+const { handleDelete } = require("../common/common");
 const TeleMedicineSession = require("../models/telemedicineSession.model");
 
 class TeleMedicineSessionService {
@@ -30,17 +31,7 @@ class TeleMedicineSessionService {
   }
 
   async delete(req) {
-    return new Promise((resolve, reject) => {
-      TeleMedicineSession.findByIdAndDelete(req.params.id)
-        .then((response) => {
-          if (Object.keys(response || {}).length > 0) {
-            resolve();
-          } else {
-            reject("Telemedicine Session does not exist");
-          }
-        })
-        .catch(reject);
-    });
+    return handleDelete(req.params.id, { TeleMedicineSession });
   }
 }
 module.exports = new TeleMedicineSessionService();

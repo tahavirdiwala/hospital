@@ -42,9 +42,27 @@ const validate = (fields, body) => {
   }
 };
 
+const handleDelete = async (id, Model) => {
+  const entity = Object.keys(Model).toString();
+
+  return new Promise((resolve, reject) => {
+    Model[entity]
+      .findByIdAndDelete(id)
+      .then((response) => {
+        if (Object.keys(response || {}).length > 0) {
+          resolve();
+        } else {
+          reject(`${entity} does not exist`);
+        }
+      })
+      .catch(reject);
+  });
+};
+
 module.exports = {
   compare,
   validate,
   hashField,
   sendResponse,
+  handleDelete,
 };

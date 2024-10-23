@@ -1,3 +1,4 @@
+const { handleDelete } = require("../common/common");
 const Medication = require("../models/medication.model");
 
 class MedicationService {
@@ -34,17 +35,7 @@ class MedicationService {
   }
 
   async delete(req) {
-    return new Promise((resolve, reject) => {
-      Medication.findByIdAndDelete(req.params.id)
-        .then((response) => {
-          if (Object.keys(response || {}).length > 0) {
-            resolve();
-          } else {
-            reject("Medication does not exist");
-          }
-        })
-        .catch(reject);
-    });
+    return handleDelete(req.params.id, { Medication });
   }
 }
 module.exports = new MedicationService();

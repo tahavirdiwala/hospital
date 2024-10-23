@@ -1,3 +1,4 @@
+const { handleDelete } = require("../common/common");
 const Appointment = require("../models/appointment.model");
 
 class AppointmentService {
@@ -33,17 +34,7 @@ class AppointmentService {
   }
 
   async delete(req) {
-    return new Promise((resolve, reject) => {
-      Appointment.findByIdAndDelete(req.params.id)
-        .then((response) => {
-          if (Object.keys(response || {}).length > 0) {
-            resolve();
-          } else {
-            reject("Appointment does not exist");
-          }
-        })
-        .catch(reject);
-    });
+    return handleDelete(req.params.id, { Appointment });
   }
 }
 

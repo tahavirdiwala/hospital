@@ -43,7 +43,7 @@ const validate = (fields, body) => {
 };
 
 const handleDelete = async (id, Model) => {
-  const entity = Object.keys(Model).toString();
+  const entity = Object.keys(Model).toLocaleString();
 
   return new Promise((resolve, reject) => {
     Model[entity]

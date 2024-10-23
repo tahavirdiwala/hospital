@@ -59,10 +59,16 @@ class DoctorService {
         {
           $project: {
             profilePicture: {
-              $concat: [
-                `${process.env.CLIENT_URL_PIC}/static/`,
-                "$profilePicture",
-              ],
+              $map: {
+                input: "$profilePicture",
+                as: "profilePicture",
+                in: {
+                  $concat: [
+                    `${process.env.CLIENT_URL_PIC}/static/`,
+                    "$$profilePicture",
+                  ],
+                },
+              },
             },
           },
         },

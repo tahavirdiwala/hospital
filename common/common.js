@@ -2,6 +2,7 @@ const { response } = require("express");
 require("dotenv").config();
 const bcrypt = require("bcryptjs");
 const { SALT_PASSWORD_CONFIG } = require("../lib/constant");
+const { default: mongoose } = require("mongoose");
 
 /**
  * Sends a JSON response with a status code, message, and optional data.
@@ -44,10 +45,13 @@ const validate = (fields, body) => {
 
 const handleDelete = async (id, model) => {
   const entity = Object.keys(model).toLocaleString();
+  /**
+   * @type {mongoose.Model}
+   */
+  const Model = model[entity];
 
   return new Promise((resolve, reject) => {
-    model[entity]
-      .findByIdAndDelete(id)
+    Model.findByIdAndDelete(id)
       .then((response) => {
         if (Object.keys(response || {}).length > 0) {
           resolve();

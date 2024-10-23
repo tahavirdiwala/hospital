@@ -73,6 +73,17 @@ class DoctorService {
           },
         },
         {
+          $redact: {
+            $cond: {
+              if: {
+                $gt: [{ $size: "$profilePicture" }, 0],
+              },
+              then: "$$DESCEND",
+              else: "$$PRUNE",
+            },
+          },
+        },
+        {
           $skip: (page - 1) * limit,
         },
         {

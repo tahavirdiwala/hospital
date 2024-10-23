@@ -11,16 +11,18 @@ const storage = multer.diskStorage({
   },
 });
 
+function fileFilter(req, file, callback) {
+  if (["image/png", "image/jpeg"].includes(file.mimetype)) {
+    callback(null, true);
+  } else {
+    console.log("only jpg & png are supported!");
+    callback(null, false);
+  }
+}
+
 const upload = multer({
   storage,
-  fileFilter: function (req, file, callback) {
-    if (["image/png", "image/jpeg"].includes(file.mimetype)) {
-      callback(null, true);
-    } else {
-      console.log("only jpg & png are supported!");
-      callback(null, false);
-    }
-  },
+  fileFilter,
   limits: {
     fileSize: 1024 * 1024 * 2,
   },

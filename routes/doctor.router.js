@@ -13,7 +13,7 @@ router.route("/doctor/profile-pic").get(doctorController.getAllProfile);
 router
   .route("/doctor/:id")
   .get(doctorController.get)
-  .put(uploadProfilePic.single("profilePicture"), doctorController.edit)
+  .put(uploadProfilePic.array("profilePicture[]"), doctorController.edit)
   .delete(doctorController.delete);
 
 module.exports = router;

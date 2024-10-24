@@ -5,6 +5,21 @@ const { SALT_PASSWORD_CONFIG } = require("../lib/constant");
 require("dotenv").config();
 
 class CommonDecorators {
+  validator(fields, body) {
+    let message = "";
+
+    fields.some((field) => {
+      if (!body[field]) {
+        message = `${field} is required`;
+        return true;
+      }
+      return false;
+    });
+
+    if (message.length > 0) {
+      throw new Error(message);
+    }
+  }
   /**
    * Sends a JSON response with a status code, message, and optional data.
    * @param {response} response - Express response object.
@@ -25,22 +40,6 @@ class CommonDecorators {
 
   async compare(password, hashedPassword) {
     return await bcrypt.compare(password, hashedPassword);
-  }
-
-  validator(fields, body) {
-    let message = "";
-
-    fields.some((field) => {
-      if (!body[field]) {
-        message = `${field} is required`;
-        return true;
-      }
-      return false;
-    });
-
-    if (message.length > 0) {
-      throw new Error(message);
-    }
   }
 
   async handleRemoveDocument(id, model) {

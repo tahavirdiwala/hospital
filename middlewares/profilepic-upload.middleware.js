@@ -1,4 +1,3 @@
-const path = require("path");
 const multer = require("multer");
 const { StatusCodes } = require("http-status-codes");
 const { sendResponse } = require("../common/common");
@@ -8,8 +7,7 @@ const storage = multer.diskStorage({
     cb(null, "static");
   },
   filename: function (req, file, cb) {
-    let extension = path.extname(file.originalname);
-    cb(null, Date.now() + extension);
+    cb(null, Date.now() + file.originalname);
   },
 });
 

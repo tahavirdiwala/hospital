@@ -12,8 +12,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookie());
 app.use(errorConfig.default);
-routes(app);
 app.use("/static", express.static("static"));
+routes(app);
 
 start();
 

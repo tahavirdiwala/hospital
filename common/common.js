@@ -12,7 +12,6 @@ class CommonDecorators {
    * @param {string} dispatch - Dispatch Response message.
    * @param {Array|null} [data=null] - Optional response data.
    */
-
   sendResponse(response, statusCode, dispatch, data = null) {
     if (dispatch["message"]) dispatch = dispatch["message"];
     response

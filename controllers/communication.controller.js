@@ -1,5 +1,5 @@
-const { StatusCodes } = require("http-status-codes");
 const communicationService = require("../services/communication.service");
+const { StatusCodes } = require("http-status-codes");
 const { sendResponse } = require("../common/common");
 const {
   RESPONSE_MESSAGE: { communication: MESSAGE },

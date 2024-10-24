@@ -1,5 +1,5 @@
-const doctorController = require("../controllers/doctor.controller");
 const router = require("express").Router();
+const doctorController = require("../controllers/doctor.controller");
 
 const uploadProfilePic = require("../middlewares/profilepic-upload.middleware");
 

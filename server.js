@@ -1,9 +1,9 @@
 const express = require("express");
 const connectDb = require("./database/connect");
-const cors = require("cors");
 const routes = require("./routes");
-const app = express();
+const cors = require("cors");
 const cookie = require("cookie-parser");
+const app = express();
 const { SERVER_CONFIG } = require("./lib/constant");
 
 app.use(cors());

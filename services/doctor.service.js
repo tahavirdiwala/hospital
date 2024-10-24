@@ -1,5 +1,5 @@
-const { handleDelete } = require("../common/common");
 const Doctor = require("../models/doctor.model");
+const { handleDelete } = require("../common/common");
 const uploadProfilePic = require("../utils/doctors/payload.util");
 
 class DoctorService {

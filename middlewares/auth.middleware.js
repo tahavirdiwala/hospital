@@ -1,7 +1,7 @@
-require("dotenv").config();
 const jwt = require("jsonwebtoken");
-const { sendResponse } = require("../common/common");
 const { StatusCodes } = require("http-status-codes");
+const { sendResponse } = require("../common/common");
+require("dotenv").config();
 
 const verifyAuthToken = async (req, res, next) => {
   try {

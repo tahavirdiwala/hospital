@@ -1,5 +1,5 @@
-const { handleDelete } = require("../common/common");
 const Appointment = require("../models/appointment.model");
+const { handleDelete } = require("../common/common");
 
 class AppointmentService {
   async add(req) {

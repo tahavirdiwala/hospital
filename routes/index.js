@@ -1,4 +1,3 @@
-const { Express } = require("express");
 const authRouter = require("./auth.router");
 const userRouter = require("./user.router");
 const symptomRouter = require("./symptom.router");
@@ -9,6 +8,7 @@ const communicationRouter = require("./communication.router");
 const paymentRouter = require("./payment.router");
 const clinic = require("./clinic.router");
 const telemedicineSession = require("./telemedicineSession.router");
+const { Express } = require("express");
 const { verifyAuthToken } = require("../middlewares/auth.middleware");
 /**
  * Apply routes for specified routers.

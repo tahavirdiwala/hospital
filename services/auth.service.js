@@ -1,14 +1,14 @@
-require("dotenv").config();
 const User = require("../models/user.model");
-const { compare, hashField, validate } = require("../common/common");
-const { createTokenFor } = require("../middlewares/token.middleware");
-const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { SALT_PASSWORD_CONFIG } = require("../lib/constant");
+const { createTokenFor } = require("../middlewares/token.middleware");
+const { compare, hashField, validate } = require("../common/common");
 const {
+  SALT_PASSWORD_CONFIG,
   RESPONSE_MESSAGE: { auth },
 } = require("../lib/constant");
+require("dotenv").config();
 
 class AuthService {
   async register(req) {

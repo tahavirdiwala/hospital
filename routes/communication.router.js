@@ -1,6 +1,5 @@
-const communicationController = require("../controllers/communication.controller");
-
 const router = require("express").Router();
+const communicationController = require("../controllers/communication.controller");
 
 router
   .route("/communication")

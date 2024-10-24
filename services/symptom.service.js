@@ -1,5 +1,5 @@
-const { handleDelete } = require("../common/common");
 const Symptom = require("../models/symptom.model");
+const { handleDelete } = require("../common/common");
 
 class SymptomService {
   async add(req) {

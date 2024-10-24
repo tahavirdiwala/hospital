@@ -1,5 +1,5 @@
-const { StatusCodes } = require("http-status-codes");
 const appointmentService = require("../services/appointment.service");
+const { StatusCodes } = require("http-status-codes");
 const { sendResponse } = require("../common/common");
 const {
   RESPONSE_MESSAGE: { appointment: MESSAGE },

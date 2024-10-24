@@ -1,6 +1,5 @@
-const symptomController = require("../controllers/symptom.controller");
-
 const router = require("express").Router();
+const symptomController = require("../controllers/symptom.controller");
 
 router
   .route("/symptom")

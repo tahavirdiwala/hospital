@@ -1,5 +1,5 @@
-const { StatusCodes } = require("http-status-codes");
 const telemedicineService = require("../services/telemedicine.service");
+const { StatusCodes } = require("http-status-codes");
 const { sendResponse } = require("../common/common");
 const {
   RESPONSE_MESSAGE: { teleMedicine: MESSAGE },

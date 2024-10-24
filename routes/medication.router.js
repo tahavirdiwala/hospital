@@ -1,6 +1,5 @@
-const medicationController = require("../controllers/medication.controller");
-
 const router = require("express").Router();
+const medicationController = require("../controllers/medication.controller");
 
 router
   .route("/medication")
@@ -11,6 +10,6 @@ router
   .route("/medication/:id")
   .get(medicationController.get)
   .put(medicationController.edit)
-  .delete(medicationController.delete)
+  .delete(medicationController.delete);
 
 module.exports = router;

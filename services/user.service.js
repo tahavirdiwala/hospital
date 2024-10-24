@@ -1,6 +1,6 @@
-require("dotenv").config();
-const { handleDelete } = require("../common/common");
 const User = require("../models/user.model");
+const { handleDelete } = require("../common/common");
+require("dotenv").config();
 
 class UserService {
   async getAll(req) {

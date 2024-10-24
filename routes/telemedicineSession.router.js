@@ -1,6 +1,5 @@
-const telemedicineSessionController = require("../controllers/telemedicineSession.controller");
-
 const router = require("express").Router();
+const telemedicineSessionController = require("../controllers/telemedicineSession.controller");
 
 router
   .route("/telemedicine-session")

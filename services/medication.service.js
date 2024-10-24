@@ -1,5 +1,5 @@
-const { handleDelete } = require("../common/common");
 const Medication = require("../models/medication.model");
+const { handleDelete } = require("../common/common");
 
 class MedicationService {
   async add(req) {

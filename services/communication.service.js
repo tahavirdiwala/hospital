@@ -1,5 +1,5 @@
-const { handleDelete } = require("../common/common");
 const Communication = require("../models/communication.model");
+const { handleDelete } = require("../common/common");
 
 class CommunicationService {
   async add(req) {

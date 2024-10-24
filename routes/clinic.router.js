@@ -1,6 +1,5 @@
-const clinicController = require("../controllers/clinic.controller");
-
 const router = require("express").Router();
+const clinicController = require("../controllers/clinic.controller");
 
 router.route("/clinic").post(clinicController.add).get(clinicController.getAll);
 

@@ -1,5 +1,5 @@
-require("dotenv").config();
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 /**
  * Sets a jwt response for specified user.

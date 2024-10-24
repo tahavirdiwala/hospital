@@ -1,6 +1,5 @@
-const appointmentController = require("../controllers/appointment.controller");
-
 const router = require("express").Router();
+const appointmentController = require("../controllers/appointment.controller");
 
 router
   .route("/appointment")

@@ -10,7 +10,9 @@ class TeleMedicineSessionService {
 
   async getAll(req) {
     return new Promise((resolve, reject) => {
-      TeleMedicineSession.find().then(resolve).catch(reject);
+      TeleMedicineSession.findAll({ ...req.query })
+        .then(resolve)
+        .catch(reject);
     });
   }
 

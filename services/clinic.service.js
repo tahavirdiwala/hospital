@@ -9,15 +9,9 @@ class ClinicService {
 
   async getAll(req) {
     return new Promise((resolve, reject) => {
-      const { page = 1, limit = 10 } = req.query;
-      Clinic.find()
-        .populate("doctors")
-        .limit(limit * 1)
-        .skip((page - 1) * limit)
+      Clinic.findAll({ ...req.query })
         .then(resolve)
         .catch(reject);
-
-      Clinic.find;
     });
   }
 

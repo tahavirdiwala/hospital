@@ -10,7 +10,9 @@ class CommunicationService {
 
   async getAll(req) {
     return new Promise((resolve, reject) => {
-      Communication.find().then(resolve).catch(reject);
+      Communication.findAll({ ...req.query })
+        .then(resolve)
+        .catch(reject);
     });
   }
 

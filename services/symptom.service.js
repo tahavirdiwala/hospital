@@ -14,25 +14,22 @@ class SymptomService {
       const { page = 1, limit = 10, userPage = 1, userLimit = 5 } = req.query;
       //#endregion - body
 
-      //#region - selectors
-      const selectors = {};
-      //#endregion - selectors
-
-      //#region - queries
-      Symptom.find()
-        // .populate("userId")
-        .populate({
+      //#region - filter
+      const filter = {
+        limit,
+        page,
+        populate: {
           path: "userId",
           options: {
             skip: (userPage - 1) * userLimit,
             limit: userLimit * 1,
           },
-        })
-        .limit(limit * 1)
-        .skip((page - 1) * limit)
-        .then(resolve)
-        .catch(reject);
+        },
+      };
+      //#endregion - filter
 
+      //#region - queries
+      Symptom.findAll(filter).then(resolve).catch(reject);
       //#endregion - queries
     });
   }

@@ -25,12 +25,28 @@ class DoctorService {
   }
 
   async edit(req) {
-    return new Promise((resolve, reject) => {
-      const payload = uploadProfilePic(req);
+    return new Promise(async (resolve, reject) => {
+      try {
+        const id = req.params.id;
+        const payload = uploadProfilePic(req);
 
-      Doctor.findByIdAndUpdate(req.params.id, payload)
-        .then(resolve)
-        .catch(reject);
+        const doctor = await Doctor.findOne({ _id: id });
+
+        if (doctor) {
+          doctor.profilePicture.push(...payload.profilePicture);
+
+          const updatedPayload = {
+            ...payload,
+            profilePicture: doctor.profilePicture,
+          };
+
+          Doctor.findByIdAndUpdate(id, updatedPayload)
+            .then(resolve)
+            .catch(reject);
+        }
+      } catch (error) {
+        reject(error);
+      }
     });
   }
 

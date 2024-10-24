@@ -16,6 +16,8 @@ class ClinicService {
         .skip((page - 1) * limit)
         .then(resolve)
         .catch(reject);
+
+      Clinic.find;
     });
   }
 

@@ -1,5 +1,6 @@
 const express = require("express");
 const connectDb = require("./database/connect");
+const errorConfig = require("./middlewares/errorConfig.middleware");
 const routes = require("./routes");
 const cors = require("cors");
 const cookie = require("cookie-parser");
@@ -10,6 +11,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookie());
+app.use(errorConfig.default);
 routes(app);
 app.use("/static", express.static("static"));
 

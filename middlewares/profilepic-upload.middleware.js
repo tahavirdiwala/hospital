@@ -1,7 +1,7 @@
 const path = require("path");
 const multer = require("multer");
-const { sendResponse } = require("../common/common");
 const { StatusCodes } = require("http-status-codes");
+const { sendResponse } = require("../common/common");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {

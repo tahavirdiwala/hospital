@@ -1,8 +1,8 @@
 const { response } = require("express");
-require("dotenv").config();
 const bcrypt = require("bcryptjs");
-const { SALT_PASSWORD_CONFIG } = require("../lib/constant");
 const { default: mongoose } = require("mongoose");
+const { SALT_PASSWORD_CONFIG } = require("../lib/constant");
+require("dotenv").config();
 
 /**
  * Sends a JSON response with a status code, message, and optional data.

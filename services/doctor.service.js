@@ -12,11 +12,7 @@ class DoctorService {
 
   async getAll(req) {
     return new Promise((resolve, reject) => {
-      const { page = 1, limit = 10 } = req.query;
-
-      Doctor.find()
-        .limit(limit * 1)
-        .skip((page - 1) * limit)
+      Doctor.findAll({ ...req.query })
         .then(resolve)
         .catch(reject);
     });

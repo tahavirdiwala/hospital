@@ -1,5 +1,6 @@
 const mongoose = require("mongoose"),
   Schema = mongoose;
+const commonStatic = require("../utils");
 
 const symptomsSchema = new mongoose.Schema(
   {
@@ -21,6 +22,9 @@ const symptomsSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    statics: {
+      ...commonStatic.decorators,
+    },
   }
 );
 

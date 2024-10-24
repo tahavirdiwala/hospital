@@ -5,21 +5,9 @@ require("dotenv").config();
 class UserService {
   async getAll(req) {
     return new Promise((resolve, reject) => {
-      //#region - body
-      const { page = 1, limit = 10 } = req.params;
-      //#endregion - body
-
-      //#region - selectors
-      const selectors = {};
-      //#endregion - selectors
-
-      //#region - queries
-      User.find()
-        .limit(limit * 1)
-        .skip((page - 1) * limit)
+      User.findAll({ ...req.query })
         .then(resolve)
         .catch(reject);
-      //#endregion - queries
     });
   }
 

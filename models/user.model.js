@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const validate = require("../utils/users/validate.util");
 const statics = require("../utils/users/static.util");
+const commonStatic = require("../utils");
 
 const userSchema = new mongoose.Schema(
   {
@@ -32,7 +33,10 @@ const userSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-    statics,
+    statics: {
+      ...statics,
+      ...commonStatic.decorators,
+    },
   }
 );
 

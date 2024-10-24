@@ -27,7 +27,7 @@ function checkUserAuthentication(req, res, next) {
       }
     });
   } else {
-    throw new Error("Unauthorized - User must be login");
+    throw new Error("Unauthorized - Session has expired please login again");
   }
   next();
 }

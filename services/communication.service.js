@@ -1,5 +1,5 @@
 const Communication = require("../models/communication.model");
-const { handleDelete } = require("../common/common");
+const { handleRemoveDocument } = require("../common/common");
 
 class CommunicationService {
   async add(req) {
@@ -31,7 +31,7 @@ class CommunicationService {
   }
 
   async delete(req) {
-    return handleDelete(req.params.id, { Communication });
+    return handleRemoveDocument(req.params.id, { Communication });
   }
 }
 module.exports = new CommunicationService();

@@ -1,5 +1,5 @@
 const Symptom = require("../models/symptom.model");
-const { handleDelete } = require("../common/common");
+const { handleRemoveDocument } = require("../common/common");
 
 class SymptomService {
   async add(req) {
@@ -48,7 +48,7 @@ class SymptomService {
   }
 
   async delete(req) {
-    return handleDelete(req.params.id, { Symptom });
+    return handleRemoveDocument(req.params.id, { Symptom });
   }
 }
 

@@ -1,5 +1,5 @@
 const User = require("../models/user.model");
-const { handleDelete } = require("../common/common");
+const { handleRemoveDocument } = require("../common/common");
 require("dotenv").config();
 
 class UserService {
@@ -25,7 +25,7 @@ class UserService {
   }
 
   async delete(req) {
-    return handleDelete(req.params.id, { User });
+    return handleRemoveDocument(req.params.id, { User });
   }
 }
 

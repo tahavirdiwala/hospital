@@ -1,5 +1,5 @@
 const Doctor = require("../models/doctor.model");
-const { handleDelete } = require("../common/common");
+const { handleRemoveDocument } = require("../common/common");
 const uploadProfilePic = require("../utils/doctors/payload.util");
 
 class DoctorService {
@@ -35,7 +35,7 @@ class DoctorService {
   }
 
   async delete(req) {
-    return handleDelete(req.params.id, { Doctor });
+    return handleRemoveDocument(req.params.id, { Doctor });
   }
 
   async getAllProfilePic(req) {

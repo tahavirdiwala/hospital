@@ -28,17 +28,24 @@ const upload = multer({
   },
 });
 
+function multerException(error, next) {
+  if (error instanceof multer.MulterError) {
+    throw new Error(error);
+  } else if (error) {
+    throw new Error(error);
+  } else {
+    next();
+  }
+}
+
 function uploadDecorator(req, res, next) {
   const uploadFile = upload.array("profilePicture");
 
-  uploadFile(req, res, function (error) {
-    if (error instanceof multer.MulterError) {
+  uploadFile(req, res, (error) => {
+    try {
+      return multerException(error, next);
+    } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
-      return;
-    } else if (error) {
-      sendResponse(res, StatusCodes.BAD_REQUEST, error);
-    } else {
-      next();
     }
   });
 }

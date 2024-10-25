@@ -3,7 +3,7 @@ const nodemailer = require("nodemailer");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { createTokenFor } = require("../middlewares/token.middleware");
-const { compare, hashField, validate } = require("../common/common");
+const { compare, hashField, validator } = require("../common/common");
 const {
   SALT_PASSWORD_CONFIG,
   RESPONSE_MESSAGE: { auth },
@@ -40,7 +40,7 @@ class AuthService {
   async login(req, res) {
     return new Promise(async (resolve, reject) => {
       try {
-        validate(["email", "password"], req.body);
+        validator(["email", "password"], req.body);
 
         const { password, user } = await User.findBy(req.body.email);
 

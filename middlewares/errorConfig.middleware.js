@@ -1,3 +1,4 @@
+const multer = require("multer");
 const { StatusCodes } = require("http-status-codes");
 const { sendResponse } = require("../common/common");
 
@@ -11,6 +12,16 @@ class ErrorConfig {
   default(error, req, res, next) {
     error.statusCode = error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR;
     sendResponse(res, error.statusCode, error.message);
+  }
+
+  multerException(error, next) {
+    if (error instanceof multer.MulterError) {
+      throw new Error(error);
+    } else if (error) {
+      throw new Error(error);
+    } else {
+      next();
+    }
   }
 }
 

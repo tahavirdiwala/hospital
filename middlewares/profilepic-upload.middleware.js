@@ -1,4 +1,5 @@
 const multer = require("multer");
+const errorConfig = require("./errorConfig.middleware");
 const { StatusCodes } = require("http-status-codes");
 const { sendResponse } = require("../common/common");
 
@@ -28,22 +29,12 @@ const upload = multer({
   },
 });
 
-function multerException(error, next) {
-  if (error instanceof multer.MulterError) {
-    throw new Error(error);
-  } else if (error) {
-    throw new Error(error);
-  } else {
-    next();
-  }
-}
-
 function uploadDecorator(req, res, next) {
   const uploadFile = upload.array("profilePicture");
 
   uploadFile(req, res, (error) => {
     try {
-      return multerException(error, next);
+      return errorConfig.multerException(error, next);
     } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
     }

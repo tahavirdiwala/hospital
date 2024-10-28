@@ -1,4 +1,4 @@
-const routerPath = [
+module.exports = [
   "auth",
   "user",
   "symptom",
@@ -8,8 +8,4 @@ const routerPath = [
   "payment",
   "clinic",
   "telemedicineSession",
-].map((path) => {
-  return require(`./${path}.router`);
-});
-
-module.exports = routerPath;
+].map((path) => require(`./${path}.router`));

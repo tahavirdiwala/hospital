@@ -1,6 +1,6 @@
 const commonStatic = {
   decorators: {
-    async findAll(payload) {
+    async findAll(payload = {}) {
       const { page = 1, limit = 10, populate = [], ...rest } = payload;
       return new Promise((resolve, reject) => {
         this.find(rest)

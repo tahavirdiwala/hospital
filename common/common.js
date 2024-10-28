@@ -43,7 +43,7 @@ class CommonDecorators {
   }
 
   async handleRemoveDocument(id, model) {
-    const entity = Object.keys(model).toLocaleString();
+    const entity = Object.keys(model || {}).toLocaleString();
     /**
      * @type {mongoose.Model}
      */

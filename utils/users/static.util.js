@@ -1,4 +1,6 @@
+const mongoose = require("mongoose");
 const Statics = {
+  /** @this {mongoose.Model} */
   async findBy(email) {
     return new Promise((resolve, reject) => {
       this.findOne({ email })

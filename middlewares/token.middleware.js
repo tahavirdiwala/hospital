@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 /**
- * Sets a jwt response for specified user.
+ * Sets a jwt response for given user.
  * @param {object} user - User fields object.
  * @param {string} expiry - expiry for jwt token.
  */

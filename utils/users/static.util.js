@@ -1,15 +1,15 @@
 const mongoose = require("mongoose");
 const Statics = {
   /** @this {mongoose.Model} */
-  async findBy(email) {
+  async findBy(field = {}) {
     return new Promise((resolve, reject) => {
-      this.findOne({ email })
+      this.findOne(field)
         .then((response) => {
           if (response) {
             const { password, ...user } = response.toJSON();
             resolve({ user, password });
           } else {
-            reject(`User with ${email} not found`);
+            reject(`User with ${Object.keys(field).toString()} not found`);
           }
         })
         .catch(reject);

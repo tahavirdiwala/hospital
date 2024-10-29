@@ -42,7 +42,7 @@ class AuthService {
       try {
         validator(["email", "password"], req.body);
 
-        const { password, user } = await User.findBy(req.body.email);
+        const { password, user } = await User.findBy({ email: req.body.email });
 
         if (user) {
           const validPassword = await compare(req.body.password, password);
@@ -107,7 +107,7 @@ class AuthService {
   async forgotPassword(req) {
     return new Promise(async (resolve, reject) => {
       try {
-        const { user } = await User.findBy(req.body.email);
+        const { user } = await User.findBy({ email: req.body.email });
 
         const token = createTokenFor(
           user,

@@ -6,6 +6,7 @@ const cors = require("cors");
 const cookie = require("cookie-parser");
 const app = express();
 const { SERVER_CONFIG } = require("./lib/constant");
+const modelMapper = require("./models/main.model");
 
 app.use(cors());
 app.use(express.json());
@@ -29,3 +30,4 @@ async function start() {
     console.log(error);
   }
 }
+modelMapper;

@@ -48,9 +48,9 @@ class AuthService {
           const validPassword = await compare(req.body.password, password);
 
           if (validPassword) {
-            const expires = process.env.JWT_EXPIRE;
+            const withExpiry = process.env.JWT_EXPIRE;
 
-            const token = createTokenFor(user, expires);
+            const token = createTokenFor(user, withExpiry);
 
             res.cookie("jwt", token, {
               maxAge: 12 * 60 * 60 * 1000,

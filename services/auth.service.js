@@ -3,7 +3,7 @@ const nodemailer = require("nodemailer");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { createTokenFor } = require("../middlewares/token.middleware");
-const { compare, hashField, validator } = require("../common/common");
+const { compare, hashField } = require("../common/common");
 const {
   SaltPasswordConfig,
   ResponseMessage: { auth },
@@ -40,8 +40,6 @@ class AuthService {
   async login(req, res) {
     return new Promise(async (resolve, reject) => {
       try {
-        validator(["email", "password"], req.body);
-
         const { password, user } = await User.findBy({ email: req.body.email });
 
         if (user) {

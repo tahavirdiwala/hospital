@@ -60,22 +60,6 @@ class CommonDecorators {
   getFiles(dir) {
     return fs.readdirSync(dir);
   }
-
-  validator(fields, body) {
-    let message = "";
-
-    fields.some((field) => {
-      if (!body[field]) {
-        message = `${field} is required`;
-        return true;
-      }
-      return false;
-    });
-
-    if (message.length > 0) {
-      throw new Error(message);
-    }
-  }
 }
 
 module.exports = new CommonDecorators();

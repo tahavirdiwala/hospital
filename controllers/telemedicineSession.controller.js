@@ -2,7 +2,7 @@ const telemedicineService = require("../services/telemedicine.service");
 const { StatusCodes } = require("http-status-codes");
 const { sendResponse } = require("../common/common");
 const {
-  RESPONSE_MESSAGE: { teleMedicine: MESSAGE },
+  ResponseMessage: { teleMedicine: MESSAGE },
 } = require("../lib/constant");
 
 class TeleMedicineSessionController {

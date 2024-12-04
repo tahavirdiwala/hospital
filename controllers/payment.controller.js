@@ -2,7 +2,7 @@ const paymentService = require("../services/payment.service");
 const { StatusCodes } = require("http-status-codes");
 const { sendResponse } = require("../common/common");
 const {
-  RESPONSE_MESSAGE: { payment: MESSAGE },
+  ResponseMessage: { payment: MESSAGE },
 } = require("../lib/constant");
 
 class PaymentController {

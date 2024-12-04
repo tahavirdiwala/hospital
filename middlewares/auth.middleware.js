@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { StatusCodes } = require("http-status-codes");
 const { sendResponse } = require("../common/common");
-const { SERVER_CONFIG } = require("../lib/constant");
+const { ServerConfig } = require("../lib/constant");
 
 const verifyAuthToken = async (req, res, next) => {
   try {
@@ -15,7 +15,7 @@ function checkUserAuthentication(req, res, next) {
   let token = req.cookies.jwt;
 
   if (token) {
-    jwt.verify(token, SERVER_CONFIG.JwtSecret, (error, tokenResponse) => {
+    jwt.verify(token, ServerConfig.JwtSecret, (error, tokenResponse) => {
       if (error) {
         if (error.name === "TokenExpiredError") {
           throw new Error("Unauthorized - Token has expired");

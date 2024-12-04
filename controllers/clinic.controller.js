@@ -2,7 +2,7 @@ const clinicService = require("../services/clinic.service");
 const { StatusCodes } = require("http-status-codes");
 const { sendResponse } = require("../common/common");
 const {
-  RESPONSE_MESSAGE: { clinic: MESSAGE },
+  ResponseMessage: { clinic: MESSAGE },
 } = require("../lib/constant");
 
 class ClinicController {

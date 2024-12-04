@@ -2,11 +2,11 @@ const { response } = require("express");
 const fs = require("fs");
 const { default: mongoose } = require("mongoose");
 const bcrypt = require("bcryptjs");
-const { SALT_PASSWORD_CONFIG } = require("../lib/constant");
+const { SaltPasswordConfig } = require("../lib/constant");
 
 class CommonDecorators {
   async hashField(password) {
-    return await bcrypt.hash(password, SALT_PASSWORD_CONFIG.RANGE);
+    return await bcrypt.hash(password, SaltPasswordConfig.RANGE);
   }
 
   async compare(password, hashedPassword) {

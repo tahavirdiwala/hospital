@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { SERVER_CONFIG } = require("../lib/constant");
+const { ServerConfig } = require("../lib/constant");
 
 /**
  * Sets a jwt response for given user.
@@ -7,7 +7,7 @@ const { SERVER_CONFIG } = require("../lib/constant");
  * @param {string} expiry - expiry for jwt token.
  */
 const createTokenFor = (user, expiry) => {
-  return jwt.sign(user, SERVER_CONFIG.JwtSecret, {
+  return jwt.sign(user, ServerConfig.JwtSecret, {
     expiresIn: expiry,
   });
 };

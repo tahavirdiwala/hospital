@@ -5,9 +5,9 @@ const jwt = require("jsonwebtoken");
 const { createTokenFor } = require("../middlewares/token.middleware");
 const { compare, hashField, validator } = require("../common/common");
 const {
-  SALT_PASSWORD_CONFIG,
-  RESPONSE_MESSAGE: { auth },
-  SERVER_CONFIG,
+  SaltPasswordConfig,
+  ResponseMessage: { auth },
+  ServerConfig,
 } = require("../lib/constant");
 
 class AuthService {
@@ -18,7 +18,7 @@ class AuthService {
           reject("Please fill necessary field");
         }
 
-        const salt = await bcrypt.genSalt(SALT_PASSWORD_CONFIG.RANGE);
+        const salt = await bcrypt.genSalt(SaltPasswordConfig.RANGE);
 
         const payload = {
           ...req.body,
@@ -48,7 +48,7 @@ class AuthService {
           const validPassword = await compare(req.body.password, password);
 
           if (validPassword) {
-            const withExpiry = SERVER_CONFIG.JwtSecret;
+            const withExpiry = ServerConfig.JwtSecret;
 
             const token = createTokenFor(user, withExpiry);
 
@@ -109,12 +109,9 @@ class AuthService {
       try {
         const { user } = await User.findBy({ email: req.body.email });
 
-        const token = createTokenFor(
-          user,
-          SERVER_CONFIG.JwtPassWordResetExpiry
-        );
+        const token = createTokenFor(user, ServerConfig.JwtPassWordResetExpiry);
 
-        const url = `${SERVER_CONFIG.ClientUrl}/auth/reset-password/${token}`;
+        const url = `${ServerConfig.ClientUrl}/auth/reset-password/${token}`;
         const transporter = nodemailer.createTransport(auth.transporter);
 
         const option = {
@@ -137,7 +134,7 @@ class AuthService {
         const { password } = req.body;
 
         if (password) {
-          const decode = jwt.verify(token, SERVER_CONFIG.JwtSecret);
+          const decode = jwt.verify(token, ServerConfig.JwtSecret);
 
           const user = await User.findOne({ email: decode.email });
 

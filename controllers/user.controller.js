@@ -2,7 +2,7 @@ const userService = require("../services/user.service");
 const { StatusCodes } = require("http-status-codes");
 const { sendResponse } = require("../common/common");
 const {
-  RESPONSE_MESSAGE: { user: MESSAGE },
+  ResponseMessage: { user: MESSAGE },
 } = require("../lib/constant");
 
 class UserController {

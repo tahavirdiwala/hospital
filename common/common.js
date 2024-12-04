@@ -3,7 +3,6 @@ const fs = require("fs");
 const { default: mongoose } = require("mongoose");
 const bcrypt = require("bcryptjs");
 const { SALT_PASSWORD_CONFIG } = require("../lib/constant");
-require("dotenv").config();
 
 class CommonDecorators {
   async hashField(password) {

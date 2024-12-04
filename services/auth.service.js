@@ -7,8 +7,8 @@ const { compare, hashField, validator } = require("../common/common");
 const {
   SALT_PASSWORD_CONFIG,
   RESPONSE_MESSAGE: { auth },
+  SERVER_CONFIG,
 } = require("../lib/constant");
-require("dotenv").config();
 
 class AuthService {
   async register(req) {
@@ -48,7 +48,7 @@ class AuthService {
           const validPassword = await compare(req.body.password, password);
 
           if (validPassword) {
-            const withExpiry = process.env.JWT_EXPIRE;
+            const withExpiry = SERVER_CONFIG.JwtSecret;
 
             const token = createTokenFor(user, withExpiry);
 
@@ -111,10 +111,10 @@ class AuthService {
 
         const token = createTokenFor(
           user,
-          process.env.JWT_PASSWORD_RESET_EXPIRE
+          SERVER_CONFIG.JwtPassWordResetExpiry
         );
 
-        const url = `${process.env.CLIENT_URL}/auth/reset-password/${token}`;
+        const url = `${SERVER_CONFIG.ClientUrl}/auth/reset-password/${token}`;
         const transporter = nodemailer.createTransport(auth.transporter);
 
         const option = {
@@ -137,7 +137,7 @@ class AuthService {
         const { password } = req.body;
 
         if (password) {
-          const decode = jwt.verify(token, process.env.JWT_SECRET);
+          const decode = jwt.verify(token, SERVER_CONFIG.JwtSecret);
 
           const user = await User.findOne({ email: decode.email });
 

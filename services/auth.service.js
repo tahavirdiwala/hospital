@@ -6,7 +6,7 @@ const { createTokenFor } = require("../middlewares/token.middleware");
 const { compare, hashField } = require("../common/common");
 const {
   SaltPasswordConfig,
-  ResponseMessage: { auth },
+  ResponseMessage: { Auth },
   ServerConfig,
 } = require("../lib/constant");
 
@@ -110,11 +110,11 @@ class AuthService {
         const token = createTokenFor(user, ServerConfig.JwtPassWordResetExpiry);
 
         const url = `${ServerConfig.ClientUrl}/auth/reset-password/${token}`;
-        const transporter = nodemailer.createTransport(auth.transporter);
+        const transporter = nodemailer.createTransport(Auth.transporter);
 
         const option = {
-          ...auth.receiver,
-          text: auth.receiver.text(url),
+          ...Auth.receiver,
+          text: Auth.receiver.text(url),
           to: user.email,
         };
 

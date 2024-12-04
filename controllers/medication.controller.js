@@ -2,7 +2,7 @@ const medicationService = require("../services/medication.service");
 const { StatusCodes } = require("http-status-codes");
 const { sendResponse } = require("../common/common");
 const {
-  ResponseMessage: { medication: MESSAGE },
+  ResponseMessage: { Medication: MESSAGE },
 } = require("../lib/constant");
 
 class MedicationController {

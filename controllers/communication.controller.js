@@ -2,7 +2,7 @@ const communicationService = require("../services/communication.service");
 const { StatusCodes } = require("http-status-codes");
 const { sendResponse } = require("../common/common");
 const {
-  ResponseMessage: { communication: MESSAGE },
+  ResponseMessage: { Communication: MESSAGE },
 } = require("../lib/constant");
 
 class CommunicationController {

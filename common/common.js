@@ -6,7 +6,7 @@ const { SaltPasswordConfig } = require("../lib/constant");
 
 class CommonDecorators {
   async hashField(password) {
-    return await bcrypt.hash(password, SaltPasswordConfig.RANGE);
+    return await bcrypt.hash(password, SaltPasswordConfig.Range);
   }
 
   async compare(password, hashedPassword) {

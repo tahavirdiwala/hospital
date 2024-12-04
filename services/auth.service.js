@@ -18,7 +18,7 @@ class AuthService {
           reject("Please fill necessary field");
         }
 
-        const salt = await bcrypt.genSalt(SaltPasswordConfig.RANGE);
+        const salt = await bcrypt.genSalt(SaltPasswordConfig.Range);
 
         const payload = {
           ...req.body,

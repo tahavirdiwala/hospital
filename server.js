@@ -19,11 +19,11 @@ start();
 
 async function start() {
   try {
-    await connectDb(SERVER_CONFIG.MONGO_URL).then(() => {
+    await connectDb(SERVER_CONFIG.MongoUri).then(() => {
       console.log("database connected");
     });
     app.listen(SERVER_CONFIG.PORT, () => {
-      console.log("server is running at port " + SERVER_CONFIG.PORT);
+      console.log("server is running at port " + SERVER_CONFIG.Port);
     });
   } catch (error) {
     console.log(error);

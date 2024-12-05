@@ -1,5 +1,5 @@
 const Medication = require("../models/medication.model");
-const { handleDelete } = require("../common/common");
+const { handleRemoveDocument } = require("../common/common");
 
 class MedicationService {
   async add(req) {
@@ -31,7 +31,7 @@ class MedicationService {
   }
 
   async delete(req) {
-    return handleDelete(req.params.id, { Medication });
+    return handleRemoveDocument(req.params.id, { Medication });
   }
 }
 module.exports = new MedicationService();

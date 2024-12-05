@@ -5,25 +5,25 @@ const routes = require("./routes");
 const cors = require("cors");
 const cookie = require("cookie-parser");
 const app = express();
-const { SERVER_CONFIG } = require("./lib/constant");
+const { ServerConfig } = require("./lib/constant");
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookie());
 app.use(errorConfig.default);
-routes(app);
 app.use("/static", express.static("static"));
+routes(app);
 
 start();
 
 async function start() {
   try {
-    await connectDb(SERVER_CONFIG.MONGO_URL).then(() => {
+    await connectDb(ServerConfig.MongoUri).then(() => {
       console.log("database connected");
     });
-    app.listen(SERVER_CONFIG.PORT, () => {
-      console.log("server is running at port " + SERVER_CONFIG.PORT);
+    app.listen(ServerConfig.Port, () => {
+      console.log("server is running at port " + ServerConfig.Port);
     });
   } catch (error) {
     console.log(error);

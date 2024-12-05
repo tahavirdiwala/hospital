@@ -3,12 +3,12 @@ const nodemailer = require("nodemailer");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { createTokenFor } = require("../middlewares/token.middleware");
-const { compare, hashField, validate } = require("../common/common");
+const { compare, hashField } = require("../common/common");
 const {
-  SALT_PASSWORD_CONFIG,
-  RESPONSE_MESSAGE: { auth },
+  SaltPasswordConfig,
+  ResponseMessage: { Auth },
+  ServerConfig,
 } = require("../lib/constant");
-require("dotenv").config();
 
 class AuthService {
   async register(req) {
@@ -18,7 +18,7 @@ class AuthService {
           reject("Please fill necessary field");
         }
 
-        const salt = await bcrypt.genSalt(SALT_PASSWORD_CONFIG.RANGE);
+        const salt = await bcrypt.genSalt(SaltPasswordConfig.Range);
 
         const payload = {
           ...req.body,
@@ -40,17 +40,15 @@ class AuthService {
   async login(req, res) {
     return new Promise(async (resolve, reject) => {
       try {
-        validate(["email", "password"], req.body);
-
-        const { password, user } = await User.findBy(req.body.email);
+        const { password, user } = await User.findBy({ email: req.body.email });
 
         if (user) {
           const validPassword = await compare(req.body.password, password);
 
           if (validPassword) {
-            const expires = process.env.JWT_EXPIRE;
+            const withExpiry = ServerConfig.JwtExpiry;
 
-            const token = createTokenFor(user, expires);
+            const token = createTokenFor(user, withExpiry);
 
             res.cookie("jwt", token, {
               maxAge: 12 * 60 * 60 * 1000,
@@ -107,19 +105,16 @@ class AuthService {
   async forgotPassword(req) {
     return new Promise(async (resolve, reject) => {
       try {
-        const { user } = await User.findBy(req.body.email);
+        const { user } = await User.findBy({ email: req.body.email });
 
-        const token = createTokenFor(
-          user,
-          process.env.JWT_PASSWORD_RESET_EXPIRE
-        );
+        const token = createTokenFor(user, ServerConfig.JwtPassWordResetExpiry);
 
-        const url = `${process.env.CLIENT_URL}/auth/reset-password/${token}`;
-        const transporter = nodemailer.createTransport(auth.transporter);
+        const url = `${ServerConfig.ClientUrl}/auth/reset-password/${token}`;
+        const transporter = nodemailer.createTransport(Auth.transporter);
 
         const option = {
-          ...auth.receiver,
-          text: auth.receiver.text(url),
+          ...Auth.receiver,
+          text: Auth.receiver.text(url),
           to: user.email,
         };
 
@@ -137,7 +132,7 @@ class AuthService {
         const { password } = req.body;
 
         if (password) {
-          const decode = jwt.verify(token, process.env.JWT_SECRET);
+          const decode = jwt.verify(token, ServerConfig.JwtSecret);
 
           const user = await User.findOne({ email: decode.email });
 

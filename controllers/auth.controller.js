@@ -2,7 +2,7 @@ const authService = require("../services/auth.service");
 const { sendResponse } = require("../common/common");
 const { StatusCodes } = require("http-status-codes");
 const {
-  RESPONSE_MESSAGE: { auth: MESSAGE },
+  ResponseMessage: { Auth: MESSAGE },
 } = require("../lib/constant");
 
 class AuthController {

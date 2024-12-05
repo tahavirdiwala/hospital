@@ -1,5 +1,5 @@
 const TeleMedicineSession = require("../models/telemedicineSession.model");
-const { handleDelete } = require("../common/common");
+const { handleRemoveDocument } = require("../common/common");
 
 class TeleMedicineSessionService {
   async add(req) {
@@ -33,7 +33,7 @@ class TeleMedicineSessionService {
   }
 
   async delete(req) {
-    return handleDelete(req.params.id, { TeleMedicineSession });
+    return handleRemoveDocument(req.params.id, { TeleMedicineSession });
   }
 }
 module.exports = new TeleMedicineSessionService();

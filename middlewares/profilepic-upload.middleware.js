@@ -1,5 +1,5 @@
-const path = require("path");
 const multer = require("multer");
+const errorConfig = require("./errorConfig.middleware");
 const { StatusCodes } = require("http-status-codes");
 const { sendResponse } = require("../common/common");
 
@@ -8,8 +8,7 @@ const storage = multer.diskStorage({
     cb(null, "static");
   },
   filename: function (req, file, cb) {
-    let extension = path.extname(file.originalname);
-    cb(null, Date.now() + extension);
+    cb(null, Date.now() + file.originalname);
   },
 });
 
@@ -33,14 +32,11 @@ const upload = multer({
 function uploadDecorator(req, res, next) {
   const uploadFile = upload.array("profilePicture");
 
-  uploadFile(req, res, function (error) {
-    if (error instanceof multer.MulterError) {
+  uploadFile(req, res, (error) => {
+    try {
+      return errorConfig.multerException(error, next);
+    } catch (error) {
       sendResponse(res, StatusCodes.BAD_REQUEST, error);
-      return;
-    } else if (error) {
-      sendResponse(res, StatusCodes.BAD_REQUEST, error);
-    } else {
-      next();
     }
   });
 }

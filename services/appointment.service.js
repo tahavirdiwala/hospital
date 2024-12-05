@@ -1,5 +1,5 @@
 const Appointment = require("../models/appointment.model");
-const { handleDelete } = require("../common/common");
+const { handleRemoveDocument } = require("../common/common");
 
 class AppointmentService {
   async add(req) {
@@ -31,7 +31,7 @@ class AppointmentService {
   }
 
   async delete(req) {
-    return handleDelete(req.params.id, { Appointment });
+    return handleRemoveDocument(req.params.id, { Appointment });
   }
 }
 

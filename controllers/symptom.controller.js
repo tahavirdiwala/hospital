@@ -2,7 +2,7 @@ const symptomService = require("../services/symptom.service");
 const { sendResponse } = require("../common/common");
 const { StatusCodes } = require("http-status-codes");
 const {
-  RESPONSE_MESSAGE: { symptom: MESSAGE },
+  ResponseMessage: { Symptom: MESSAGE },
 } = require("../lib/constant");
 
 class SymptomController {

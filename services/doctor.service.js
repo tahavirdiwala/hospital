@@ -1,6 +1,7 @@
 const Doctor = require("../models/doctor.model");
-const { handleDelete } = require("../common/common");
+const { handleRemoveDocument } = require("../common/common");
 const uploadProfilePic = require("../utils/doctors/payload.util");
+const { ServerConfig } = require("../lib/constant");
 
 class DoctorService {
   async add(req) {
@@ -25,17 +26,33 @@ class DoctorService {
   }
 
   async edit(req) {
-    return new Promise((resolve, reject) => {
-      const payload = uploadProfilePic(req);
+    return new Promise(async (resolve, reject) => {
+      try {
+        const id = req.params.id;
+        const payload = uploadProfilePic(req);
 
-      Doctor.findByIdAndUpdate(req.params.id, payload)
-        .then(resolve)
-        .catch(reject);
+        const doctor = await Doctor.findOne({ _id: id });
+
+        if (doctor) {
+          doctor.profilePicture.push(...payload.profilePicture);
+
+          const updatedPayload = {
+            ...payload,
+            profilePicture: doctor.profilePicture,
+          };
+
+          Doctor.findByIdAndUpdate(id, updatedPayload)
+            .then(resolve)
+            .catch(reject);
+        }
+      } catch (error) {
+        reject(error);
+      }
     });
   }
 
   async delete(req) {
-    return handleDelete(req.params.id, { Doctor });
+    return handleRemoveDocument(req.params.id, { Doctor });
   }
 
   async getAllProfilePic(req) {
@@ -51,7 +68,7 @@ class DoctorService {
                 as: "profilePicture",
                 in: {
                   $concat: [
-                    `${process.env.CLIENT_URL_PIC}/static/`,
+                    `${ServerConfig.ClientUrlPic}/static/`,
                     "$$profilePicture",
                   ],
                 },

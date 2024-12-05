@@ -2,7 +2,7 @@ const appointmentService = require("../services/appointment.service");
 const { sendResponse } = require("../common/common");
 const { StatusCodes } = require("http-status-codes");
 const {
-  RESPONSE_MESSAGE: { appointment: MESSAGE },
+  ResponseMessage: { Appointment: MESSAGE },
 } = require("../lib/constant");
 
 class AppointmentController {

@@ -11,10 +11,7 @@ const { verifyAuthToken } = require("../middlewares/auth.middleware");
 function routes(app) {
   const defaultRoute = "/api";
   app.use(defaultRoute, authRouter);
-
-  routers.forEach((route) => {
-    app.use(defaultRoute, verifyAuthToken, route);
-  });
+  app.use(defaultRoute, verifyAuthToken, routers);
 }
 
 module.exports = routes;

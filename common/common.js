@@ -23,7 +23,6 @@ class CommonDecorators {
   /**
    * @param {string} id - id for deleting given password.
    * @param {mongoose.Model} model - parameter for mongoose model.
-   * @returns {Promise<void>} promise void
    */
   async handleRemoveDocument(id, model) {
     const entity = Object.keys(model || {}).toLocaleString();

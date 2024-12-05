@@ -12,7 +12,7 @@ const verifyAuthToken = async (req, res, next) => {
 };
 
 function checkUserAuthentication(req, res, next) {
-  let token = req.cookies.jwt;
+  const token = req.cookies.jwt;
 
   if (token) {
     jwt.verify(token, ServerConfig.JwtSecret, (error, tokenResponse) => {

@@ -1,6 +1,6 @@
 const authService = require("../services/auth.service");
-const { StatusCodes } = require("http-status-codes");
 const { sendResponse } = require("../common/common");
+const { StatusCodes } = require("http-status-codes");
 const {
   RESPONSE_MESSAGE: { auth: MESSAGE },
 } = require("../lib/constant");

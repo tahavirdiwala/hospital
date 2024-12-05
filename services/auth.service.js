@@ -46,7 +46,7 @@ class AuthService {
           const validPassword = await compare(req.body.password, password);
 
           if (validPassword) {
-            const withExpiry = ServerConfig.JwtSecret;
+            const withExpiry = ServerConfig.JwtExpiry;
 
             const token = createTokenFor(user, withExpiry);
 

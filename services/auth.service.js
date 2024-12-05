@@ -27,7 +27,7 @@ class AuthService {
 
         User.findOne({ email: req.body.email })
           .then((user) => {
-            if (user._id) reject("User already exist please login");
+            if (user) reject("User already exist please login");
             else User.create(payload).then(resolve).catch(reject);
           })
           .catch(reject);

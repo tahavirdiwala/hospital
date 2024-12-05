@@ -7,6 +7,7 @@ const { SaltPasswordConfig } = require("../lib/constant");
 class CommonDecorators {
   /**
    * @param {string} password - Password string for hashing.
+   * @returns {Promise<string>} returns hash converted password field
    */
   async hashField(password) {
     return await bcrypt.hash(password, SaltPasswordConfig.Range);
@@ -14,6 +15,7 @@ class CommonDecorators {
   /**
    * @param {string} password - current-password string for hashing.
    * @param {string} hashedPassword - compare with hashed password.
+   * @returns {Promise<boolean>} returns promise whether current password is valid or not
    */
   async compare(password, hashedPassword) {
     return await bcrypt.compare(password, hashedPassword);
@@ -56,6 +58,7 @@ class CommonDecorators {
   }
   /**
    * @param {string} dir - current directory for files.
+   * @returns {string[]} returns current directory files
    */
   getFiles(dir) {
     return fs.readdirSync(dir);

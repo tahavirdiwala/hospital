@@ -59,7 +59,7 @@ class CommonDecorators {
   }
   /**
    * @param {string} dir - current directory for files.
-   * @returns {string[]} current directory files
+   * @returns {string[]} all files inside current directory
    */
   getFiles(dir) {
     return fs.readdirSync(dir);

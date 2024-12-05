@@ -15,7 +15,7 @@ class CommonDecorators {
   /**
    * @param {string} password - current-password string for hashing.
    * @param {string} hashedPassword - compare with hashed password.
-   * @returns {Promise<boolean>} promise whether current password is valid or not
+   * @returns {Promise<boolean>} whether current password is valid or not
    */
   async compare(password, hashedPassword) {
     return await bcrypt.compare(password, hashedPassword);

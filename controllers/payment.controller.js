@@ -1,6 +1,6 @@
 const paymentService = require("../services/payment.service");
-const { StatusCodes } = require("http-status-codes");
 const { sendResponse } = require("../common/common");
+const { StatusCodes } = require("http-status-codes");
 const {
   ResponseMessage: { Payment: MESSAGE },
 } = require("../lib/constant");

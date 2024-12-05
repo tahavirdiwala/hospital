@@ -1,6 +1,6 @@
 const userService = require("../services/user.service");
-const { StatusCodes } = require("http-status-codes");
 const { sendResponse } = require("../common/common");
+const { StatusCodes } = require("http-status-codes");
 const {
   ResponseMessage: { User: MESSAGE },
 } = require("../lib/constant");

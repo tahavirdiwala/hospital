@@ -1,6 +1,6 @@
 const medicationService = require("../services/medication.service");
-const { StatusCodes } = require("http-status-codes");
 const { sendResponse } = require("../common/common");
+const { StatusCodes } = require("http-status-codes");
 const {
   ResponseMessage: { Medication: MESSAGE },
 } = require("../lib/constant");

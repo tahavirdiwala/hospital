@@ -7,7 +7,7 @@ const { SaltPasswordConfig } = require("../lib/constant");
 class CommonDecorators {
   /**
    * @param {string} password - Password string for hashing.
-   * @returns {Promise<string>} returns hash converted password field
+   * @returns {Promise<string>} hash converted password field
    */
   async hashField(password) {
     return await bcrypt.hash(password, SaltPasswordConfig.Range);
@@ -15,7 +15,7 @@ class CommonDecorators {
   /**
    * @param {string} password - current-password string for hashing.
    * @param {string} hashedPassword - compare with hashed password.
-   * @returns {Promise<boolean>} returns promise whether current password is valid or not
+   * @returns {Promise<boolean>} promise whether current password is valid or not
    */
   async compare(password, hashedPassword) {
     return await bcrypt.compare(password, hashedPassword);
@@ -23,7 +23,7 @@ class CommonDecorators {
   /**
    * @param {string} id - id for deleting given password.
    * @param {mongoose.Model} model - parameter for mongoose model.
-   * @returns {Promise<void>} returns promise void
+   * @returns {Promise<void>} promise void
    */
   async handleRemoveDocument(id, model) {
     const entity = Object.keys(model || {}).toLocaleString();
@@ -50,6 +50,7 @@ class CommonDecorators {
    * @param {number} statusCode - HTTP status code.
    * @param {string} dispatch - Dispatch Response message.
    * @param {Array|null} [data=null] - Optional response data.
+   * @returns {void} response json
    */
   sendResponse(response, statusCode, dispatch, data = null) {
     if (dispatch["message"]) dispatch = dispatch["message"];
@@ -59,7 +60,7 @@ class CommonDecorators {
   }
   /**
    * @param {string} dir - current directory for files.
-   * @returns {string[]} returns current directory files
+   * @returns {string[]} current directory files
    */
   getFiles(dir) {
     return fs.readdirSync(dir);

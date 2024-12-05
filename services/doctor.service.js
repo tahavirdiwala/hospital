@@ -1,6 +1,7 @@
 const Doctor = require("../models/doctor.model");
 const { handleRemoveDocument } = require("../common/common");
 const uploadProfilePic = require("../utils/doctors/payload.util");
+const { ServerConfig } = require("../lib/constant");
 
 class DoctorService {
   async add(req) {
@@ -67,7 +68,7 @@ class DoctorService {
                 as: "profilePicture",
                 in: {
                   $concat: [
-                    `${process.env.CLIENT_URL_PIC}/static/`,
+                    `${ServerConfig.ClientUrlPic}/static/`,
                     "$$profilePicture",
                   ],
                 },
